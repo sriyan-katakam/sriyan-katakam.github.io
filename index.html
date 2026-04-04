@@ -1,321 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SRIYAN HUB</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sriyankatakam – Scratch Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #ff8c00;
+      --orange-dark: #c96e00;
+      --orange-light: #fff4e0;
+      --orange-border: #ffd180;
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --surface2: #f5efe8;
+      --text: #1a1206;
+      --text2: #6b5a40;
+      --text3: #a08060;
+      --border: rgba(0,0,0,0.09);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+    /* HERO */
+    .hero {
+      background: var(--orange);
+      padding: 3rem 1.5rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-logo {
+      width: 76px; height: 76px;
+      border-radius: 22px;
+      background: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.18);
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.88);
+      margin-top: 0.4rem;
+      font-weight: 600;
+    }
+    .hero-btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      background: rgba(255,255,255,0.22);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      transition: background 0.15s;
+    }
+    .hero-btn:hover { background: rgba(255,255,255,0.35); }
 
-body {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    background: linear-gradient(-45deg, #007BFF, #FFD700, #00c6ff, #ffdd00);
-    background-size: 400% 400%;
-    animation: bg 10s ease infinite;
-    color: white;
-}
+    /* MAIN */
+    .main {
+      max-width: 1080px;
+      margin: -28px auto 4rem;
+      padding: 0 1.25rem;
+      position: relative;
+      z-index: 2;
+    }
 
-@keyframes bg {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
+    /* INFO BANNER */
+    .info-banner {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      padding: 14px 18px;
+      margin-bottom: 2rem;
+      font-size: 13px;
+      color: var(--text2);
+      font-weight: 600;
+      line-height: 1.7;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .info-banner .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
 
-/* CENTER SCREEN */
-.center {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-}
+    /* SECTION */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 800; }
+    .section-header .count { font-size: 13px; color: var(--text3); font-weight: 700; }
 
-/* GLASS BOX */
-.box {
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.15);
-    padding: 25px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.3);
-}
+    /* GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
 
-/* TITLE */
-h1 {
-    font-size: 32px;
-    margin-bottom: 15px;
-}
+    /* CARD */
+    .project-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.1);
+    }
 
-/* BUTTON */
-.unlock {
-    padding: 15px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    background: linear-gradient(45deg, #00c6ff, #0072ff);
-    color: white;
-    font-weight: bold;
-    transition: 0.3s;
-}
+    /* THUMBNAIL AREA — links directly to Scratch */
+    .card-thumb {
+      display: block;
+      text-decoration: none;
+      position: relative;
+      aspect-ratio: 4/3;
+      background: var(--surface2);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.22s;
+    }
+    .card-thumb:hover img { transform: scale(1.04); }
+    .card-thumb .overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s;
+    }
+    .card-thumb:hover .overlay { background: rgba(0,0,0,0.32); }
+    .overlay-play {
+      background: var(--orange);
+      color: white;
+      border-radius: 999px;
+      padding: 10px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.18s, transform 0.18s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .card-thumb:hover .overlay-play {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-.unlock:hover {
-    transform: scale(1.1);
-}
+    /* fallback when no thumbnail */
+    .thumb-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      background: var(--surface2);
+    }
 
-/* HOME CARDS */
-.card {
-    display: inline-block;
-    width: 200px;
-    padding: 25px;
-    margin: 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.3s;
-}
+    /* CARD BODY */
+    .card-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
 
-.card:hover {
-    transform: scale(1.1);
-}
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .card-badge {
+      display: inline-block;
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 3px 8px; border-radius: 999px;
+      background: var(--orange-light); color: var(--orange-dark);
+      border: 1px solid var(--orange-border);
+      flex-shrink: 0;
+    }
+    .card-id {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--text3);
+    }
 
-.scratch {
-    background: linear-gradient(45deg, #ffcc00, #ff6600);
-}
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.3;
+    }
 
-.drawing {
-    background: linear-gradient(45deg, #00c6ff, #0072ff);
-}
+    .card-desc {
+      font-size: 12px;
+      color: var(--text2);
+      line-height: 1.6;
+      flex: 1;
+    }
 
-/* SECTIONS */
-.section {
-    display: none;
-    height: 100vh;
-    width: 100vw;
-    overflow-y: auto;
-    padding: 20px;
-}
+    /* BUTTONS */
+    .card-actions { display: flex; gap: 8px; margin-top: 4px; }
+    .btn-play {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+    .btn-play:hover { background: var(--orange-dark); }
+    .btn-see {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface2);
+      color: var(--text2);
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .btn-see:hover { background: #ede5db; }
 
-/* FILE BUTTON */
-.file-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 10px;
-    border-radius: 15px;
-    background: linear-gradient(45deg, #00c6ff, #0072ff);
-    cursor: pointer;
-}
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
 
-.file-btn input {
-    display: none;
-}
-
-/* ITEMS */
-.item {
-    background: rgba(255,255,255,0.2);
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 15px;
-    max-width: 500px;
-}
-
-img {
-    width: 120px;
-    border-radius: 10px;
-}
-
-button {
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: none;
-    margin: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.save { background: #00ffcc; }
-.delete { background: red; color: white; }
-.download { background: limegreen; }
-</style>
+    @media (max-width: 520px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- UNLOCK SCREEN -->
-<div class="center" id="unlockScreen">
-    <div class="box">
-        <h1>🔓 SRIYAN HUB</h1>
-        <p>Tap to unlock</p>
-        <br>
-        <button class="unlock" onclick="unlock()">UNLOCK 🚀</button>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <ellipse cx="21" cy="16" rx="9.5" ry="11.5" fill="#ff8c00"/>
+        <ellipse cx="21" cy="28" rx="8" ry="9.5" fill="#ffb347"/>
+        <circle cx="17.5" cy="14" r="2.1" fill="white"/>
+        <circle cx="24.5" cy="14" r="2.1" fill="white"/>
+        <circle cx="18" cy="14.4" r="0.95" fill="#1a1206"/>
+        <circle cx="25" cy="14.4" r="0.95" fill="#1a1206"/>
+      </svg>
     </div>
-</div>
+    <h1>sriyankatakam's Projects</h1>
+    <p>Click any project to play on Scratch — no login needed</p>
+    <a class="hero-btn" href="https://scratch.mit.edu/users/sriyankatakam" target="_blank" rel="noopener">
+      View full Scratch profile ↗
+    </a>
+  </div>
+</header>
 
-<!-- HOME -->
-<div class="center" id="home" style="display:none;">
-    <div class="box">
-        <h1>🚀 SRIYAN SCRATCH PROJECTS AND DRAWINGS</h1>
+<!-- MAIN -->
+<main class="main">
 
-        <div class="card scratch" onclick="openScratch()">🐱 SCRATCH</div>
-        <div class="card drawing" onclick="openDrawing()">🎨 DRAWING</div>
-    </div>
-</div>
+  <div class="info-banner">
+    <span class="icon">💡</span>
+    <span>
+      All projects open directly on <strong>scratch.mit.edu</strong> in a new tab — visitors can play instantly without creating a Scratch account.
+      Just make sure each project is set to <strong>Public</strong> in your Scratch settings.
+    </span>
+  </div>
 
-<!-- SCRATCH -->
-<div class="section" id="scratch">
-    <div class="box">
-        <h1>🐱 SCRATCH FILES</h1>
+  <div class="section-header">
+    <h2>All Projects</h2>
+    <span class="count" id="countLabel"></span>
+  </div>
 
-        <label class="file-btn">
-            🎓 Choose SB3
-            <input type="file" id="sb3" accept=".sb3">
-        </label>
+  <div class="projects-grid" id="projectsGrid"></div>
+</main>
 
-        <br>
-        <button class="save" onclick="saveSB3()">SAVE</button>
-        <button onclick="back()">⬅ BACK</button>
-
-        <div id="sb3List"></div>
-    </div>
-</div>
-
-<!-- DRAWING -->
-<div class="section" id="drawing">
-    <div class="box">
-        <h1>🎨 DRAWINGS</h1>
-
-        <label class="file-btn">
-            🖼 Choose Image
-            <input type="file" id="img" accept="image/*">
-        </label>
-
-        <br>
-        <button class="save" onclick="saveImg()">SAVE</button>
-        <button onclick="back()">⬅ BACK</button>
-
-        <div id="imgList"></div>
-    </div>
-</div>
+<footer>
+  Made by <a href="https://scratch.mit.edu/users/sriyankatakam" target="_blank">sriyankatakam</a>
+  &nbsp;·&nbsp; Powered by <a href="https://scratch.mit.edu" target="_blank">Scratch – MIT</a>
+  &nbsp;·&nbsp; No login required for public projects
+</footer>
 
 <script>
+// ═══════════════════════════════════════════════════════════════
+//  YOUR PROJECTS — fill in your real project IDs and titles
+//
+//  How to find your project ID:
+//    1. Go to scratch.mit.edu and open your project
+//    2. The URL looks like: scratch.mit.edu/projects/123456789
+//    3. Copy that number — that is your project ID
+//
+//  Scratch automatically shows a thumbnail image for each project.
+//  If the thumbnail doesn't load, your chosen emoji shows instead.
+//
+//  EMOJI IDEAS : 🎮 🐱 🚀 🎨 🎵 🌟 🏆 🌈 🦋 ⚡ 🐉 🌊 🔥 🎭 🤖 🏃 🎯 🧩
+//  TAG IDEAS   : Game  Animation  Art  Music  Story  Quiz  Simulation  Other
+// ═══════════════════════════════════════════════════════════════
+const MY_PROJECTS = [
+  {
+    id:    "https://scratch.mit.edu/projects/1113657177/",
+    title: "Water Cycle",
+    desc:  "Water Cycle ",
+    emoji: "🎮",
+    tag:   "Science"
+	image: "images/your-screenshot.png",
+  },
+  {
+    id:    "https://scratch.mit.edu/projects/1093646288",
+    title: "Tank Shooter",
+    desc:  "Tank Shooter",
+    emoji: "🐱",
+    tag:   "Game"
+  },
+  {
+    id:    "YOUR_PROJECT_ID_3",
+    title: "My Art Project",
+    desc:  "Interactive artwork.",
+    emoji: "🎨",
+    tag:   "Art"
+  },
+  {
+    id:    "YOUR_PROJECT_ID_4",
+    title: "My Story",
+    desc:  "An interactive story.",
+    emoji: "🌟",
+    tag:   "Story"
+  },
+  {
+    id:    "YOUR_PROJECT_ID_5",
+    title: "My Music Project",
+    desc:  "A music project.",
+    emoji: "🎵",
+    tag:   "Music"
+  },
+  // ← Add more projects here, copy-paste a block above and change the values
+];
 
-/* UNLOCK */
-function unlock(){
-    document.getElementById("unlockScreen").style.display = "none";
-    document.getElementById("home").style.display = "flex";
+// ── Render all cards ──────────────────────────────────────────
+function renderAll() {
+  const grid = document.getElementById('projectsGrid');
+  document.getElementById('countLabel').textContent = MY_PROJECTS.length + ' projects';
+
+  MY_PROJECTS.forEach(p => {
+    const projectURL  = `https://scratch.mit.edu/projects/${p.id}`;
+    // Scratch provides a public thumbnail for every project — no login needed
+    const thumbnailURL = `https://cdn2.scratch.mit.edu/get_image/project/${p.id}_480x360.png`;
+
+    const card = document.createElement('div');
+    card.className = 'project-card';
+
+    card.innerHTML = `
+      <a class="card-thumb" href="${projectURL}" target="_blank" rel="noopener" title="Play ${p.title}">
+        <img
+          src="${thumbnailURL}"
+          alt="${p.title} thumbnail"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="thumb-fallback" style="display:none;">${p.emoji || '🎮'}</div>
+        <div class="overlay">
+          <div class="overlay-play">▶ Play</div>
+        </div>
+      </a>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="card-badge">${p.tag || 'Project'}</span>
+          <span class="card-id">#${p.id}</span>
+        </div>
+        <div class="card-title">${p.title}</div>
+        ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
+        <div class="card-actions">
+          <a class="btn-play" href="${projectURL}" target="_blank" rel="noopener">
+            ▶ Play on Scratch
+          </a>
+          <a class="btn-see" href="https://scratch.mit.edu/projects/${p.id}/editor" target="_blank" rel="noopener">
+            See inside
+          </a>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
 }
 
-/* NAV */
-function openScratch(){
-    document.getElementById("home").style.display = "none";
-    document.getElementById("scratch").style.display = "block";
-    loadSB3();
-}
-
-function openDrawing(){
-    document.getElementById("home").style.display = "none";
-    document.getElementById("drawing").style.display = "block";
-    loadImg();
-}
-
-function back(){
-    document.getElementById("scratch").style.display = "none";
-    document.getElementById("drawing").style.display = "none";
-    document.getElementById("home").style.display = "flex";
-}
-
-/* SB3 SAVE */
-function saveSB3(){
-    let f=document.getElementById("sb3").files[0];
-    if(!f)return;
-
-    let r=new FileReader();
-    r.onload=function(e){
-        let d=JSON.parse(localStorage.getItem("sb3")||"[]");
-        d.push({name:f.name,content:e.target.result});
-        localStorage.setItem("sb3",JSON.stringify(d));
-        loadSB3();
-    }
-    r.readAsDataURL(f);
-}
-
-function loadSB3(){
-    let list=document.getElementById("sb3List");
-    list.innerHTML="";
-    let d=JSON.parse(localStorage.getItem("sb3")||"[]");
-
-    d.forEach((x,i)=>{
-        list.innerHTML+=`
-        <div class="item">
-            📄 ${x.name}<br>
-            <button class="download" onclick="dl(${i})">⬇</button>
-            <button class="delete" onclick="delSB3(${i})">🗑</button>
-        </div>`;
-    });
-}
-
-function dl(i){
-    let f=JSON.parse(localStorage.getItem("sb3"))[i];
-    let a=document.createElement("a");
-    a.href=f.content;
-    a.download=f.name;
-    a.click();
-}
-
-function delSB3(i){
-    let d=JSON.parse(localStorage.getItem("sb3"));
-    d.splice(i,1);
-    localStorage.setItem("sb3",JSON.stringify(d));
-    loadSB3();
-}
-
-/* IMAGES */
-function saveImg(){
-    let f=document.getElementById("img").files[0];
-    if(!f)return;
-
-    let r=new FileReader();
-    r.onload=function(e){
-        let d=JSON.parse(localStorage.getItem("img")||"[]");
-        d.push(e.target.result);
-        localStorage.setItem("img",JSON.stringify(d));
-        loadImg();
-    }
-    r.readAsDataURL(f);
-}
-
-function loadImg(){
-    let list=document.getElementById("imgList");
-    list.innerHTML="";
-    let d=JSON.parse(localStorage.getItem("img")||"[]");
-
-    d.forEach((x,i)=>{
-        list.innerHTML+=`
-        <div class="item">
-            <img src="${x}"><br>
-            <button class="delete" onclick="delImg(${i})">🗑</button>
-        </div>`;
-    });
-}
-
-function delImg(i){
-    let d=JSON.parse(localStorage.getItem("img"));
-    d.splice(i,1);
-    localStorage.setItem("img",JSON.stringify(d));
-    loadImg();
-}
+renderAll();
 </script>
-
 </body>
 </html>
