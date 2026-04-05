@@ -365,6 +365,57 @@
 .btn-delete-project {
   display: none;
 }
+
+/* 🔥 Skeleton Loader */
+.skeleton-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.skeleton-thumb {
+  aspect-ratio: 4/3;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+.skeleton-body {
+  padding: 14px;
+}
+
+.skeleton-line {
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.skeleton-line.short { width: 60%; }
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* 🔥 Image Fade-in */
+.card-thumb img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-thumb img.loaded {
+  opacity: 1;
+}
+
+/* 🔥 Smooth hover */
+.project-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.project-card:hover {
+  transform: translateY(-6px) scale(1.01);
+}
   </style>
 </head>
 <body>
@@ -435,118 +486,31 @@
   </div>
 </section>
 
+
 <!-- MAIN -->
 <main class="main">
   <div class="section-header">
     <h2>🌟 My Projects</h2>
+
     <div class="section-header-right">
-      <span class="count-badge" id="countLabel">6 projects</span>
+      <span class="count-badge" id="countLabel">0 projects</span>
+
+      <!-- Delete (Admin only) -->
       <button class="btn-delete-project" onclick="openDeleteModal()">
         🗑️ Delete Project
       </button>
+
+      <!-- Add (Admin only) -->
       <button class="btn-add-project" onclick="openModal()">
         <span class="plus">+</span> Add Project
       </button>
     </div>
   </div>
-  <div class="projects-grid" id="projectsGrid"><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1113657177" target="_blank" rel="noopener" title="Play Water Cycle">
-          <img src="file:///C:/Users/sathi/Downloads/images/water-cycle.png" alt="Water Cycle" loading="lazy" onerror="this.style.display=&#39;none&#39;;this.parentElement.querySelector(&#39;.thumb-fallback&#39;).style.display=&#39;flex&#39;;" style="display: none;">
-          <div class="thumb-fallback" style="display: flex;">💧</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-science">Science</span>
-          <div class="card-title">Water Cycle</div>
-          <div class="card-desc">An interactive Science project explaining how the water cycle works — evaporation, condensation &amp; precipitation!</div>
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1113657177" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1113657177/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(0)">🗑️ Remove Project</button>
-      </div><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1093646288" target="_blank" rel="noopener" title="Play Tank shooting game">
-          
-          <div class="thumb-fallback" style="display:flex">🎮</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-game">Game</span>
-          <div class="card-title">Tank shooting game</div>
-          
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1093646288" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1093646288/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(1)">🗑️ Remove Project</button>
-      </div><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246046533" target="_blank" rel="noopener" title="Play noise tester">
-          
-          <div class="thumb-fallback" style="display:flex">🎵</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-music">Music</span>
-          <div class="card-title">noise tester</div>
-          
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1246046533" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1246046533/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(2)">🗑️ Remove Project</button>
-      </div><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246046028" target="_blank" rel="noopener" title="Play art book">
-          
-          <div class="thumb-fallback" style="display:flex">🎨</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-art">Art</span>
-          <div class="card-title">art book</div>
-          
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1246046028" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1246046028/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(3)">🗑️ Remove Project</button>
-      </div><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246045199" target="_blank" rel="noopener" title="Play going up">
-          
-          <div class="thumb-fallback" style="display:flex">🎮</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-game">Game</span>
-          <div class="card-title">going up</div>
-          
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1246045199" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1246045199/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(4)">🗑️ Remove Project</button>
-      </div><div class="project-card">
-        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246044267" target="_blank" rel="noopener" title="Play piano">
-          
-          <div class="thumb-fallback" style="display:flex">🎵</div>
-          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
-        </a>
-        <div class="card-body">
-          <span class="card-badge tag-music">Music</span>
-          <div class="card-title">piano</div>
-          
-          <div class="card-actions">
-            <a class="btn-play" href="https://scratch.mit.edu/projects/1246044267" target="_blank" rel="noopener">▶ Play on Scratch</a>
-            <a class="btn-see" href="https://scratch.mit.edu/projects/1246044267/editor" target="_blank" rel="noopener">See inside</a>
-          </div>
-        </div>
-        <button class="card-delete" onclick="deleteProject(5)">🗑️ Remove Project</button>
-      </div></div>
+
+  <!-- 🔥 IMPORTANT: EMPTY GRID -->
+  <div class="projects-grid" id="projectsGrid"></div>
 </main>
+
 
 <footer>
   Made with <span class="footer-heart">♥</span> by
@@ -661,15 +625,29 @@ auth.onAuthStateChanged(user => {
   isAdmin = user && user.email === ADMIN_EMAIL;
 
   const loginBtn = document.querySelector(".login-btn");
-  if (loginBtn) loginBtn.textContent = isAdmin ? "✅ Admin" : "🔐 Login";
+
+  if (user) {
+    loginBtn.textContent = isAdmin
+      ? "✅ Admin Logged In"
+      : "👤 Logged In";
+  } else {
+    loginBtn.textContent = "🔐 Login";
+  }
 
   applyAccessControl();
 });
 
+
 // ===============================
 // 🔒 ACCESS CONTROL
 // ===============================
-applyAccessControl
+function applyAccessControl() {
+  const addBtn = document.querySelector('.btn-add-project');
+  const deleteBtn = document.querySelector('.btn-delete-project');
+
+  if (addBtn) addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+  if (deleteBtn) deleteBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+}
 // ===============================
 // 📡 FIRESTORE (REAL DATA)
 // ===============================
@@ -684,7 +662,22 @@ function listenProjects() {
       renderAll();
     });
 }
+function showSkeletons() {
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = '';
 
+  for (let i = 0; i < 6; i++) {
+    grid.innerHTML += `
+      <div class="skeleton-card">
+        <div class="skeleton-thumb"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+    `;
+  }
+}
 // ===============================
 // 🎨 EMOJI
 // ===============================
@@ -722,28 +715,44 @@ function renderAll() {
     projects.length + ' project' + (projects.length !== 1 ? 's' : '');
 
   if (projects.length === 0) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">🐱</div>
-      <p>No projects yet!</p>
-    </div>`;
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🚀</div>
+        <p>No projects yet!</p>
+      </div>
+    `;
     return;
   }
 
-  projects.forEach((p, index) => {
+  projects.forEach((p) => {
     const projectURL = `https://scratch.mit.edu/projects/${p.scratchId}`;
     const editorURL = `${projectURL}/editor`;
     const tagClass = `tag-${(p.tag || "default").toLowerCase()}`;
+    const thumbURL = `https://uploads.scratch.mit.edu/projects/thumbnails/${p.scratchId}.png`;
 
     const card = document.createElement('div');
     card.className = 'project-card';
 
     card.innerHTML = `
       <a class="card-thumb" href="${projectURL}" target="_blank">
-        <div class="thumb-fallback">${p.emoji || '🎮'}</div>
+        <img src="${thumbURL}" 
+             alt="${p.title}"
+             loading="lazy"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+
+        <div class="thumb-fallback" style="display:none;">
+          ${p.emoji || '🎮'}
+        </div>
+
+        <div class="overlay">
+          <div class="overlay-play">▶ Play</div>
+        </div>
       </a>
+
       <div class="card-body">
         <span class="card-badge ${tagClass}">${p.tag || ""}</span>
         <div class="card-title">${p.title}</div>
+
         <div class="card-actions">
           <a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a>
           <a class="btn-see" href="${editorURL}" target="_blank">See</a>
@@ -772,7 +781,7 @@ async function addProject() {
   const tag = document.getElementById('inputTag').value;
 
   const id = extractId(rawId);
-
+  if (!isAdmin) return alert("Only admin can add projects");
   if (!id) return alert("Invalid project ID");
   if (!title) return alert("Enter title");
 
@@ -796,29 +805,44 @@ function openDeleteModal() {
 
   overlay.classList.add("open");
   list.innerHTML = "";
+projects.forEach((p) => {
+  const projectURL = `https://scratch.mit.edu/projects/${p.scratchId}`;
+  const editorURL = `${projectURL}/editor`;
+  const tagClass = `tag-${(p.tag || "default").toLowerCase()}`;
+  const thumbURL = `https://uploads.scratch.mit.edu/projects/thumbnails/${p.scratchId}.png`;
 
-  projects.forEach((p, i) => {
-    const item = document.createElement("label");
-    item.className = "project-checkbox-item";
+  const card = document.createElement('div');
+  card.className = 'project-card';
 
-    item.innerHTML = `
-      <input type="checkbox" value="${i}">
-      <span class="item-emoji">${p.emoji || '🎮'}</span>
-      <div class="item-info">
-        <div class="item-title">${p.title}</div>
-        <div class="item-id">${p.scratchId}</div>
+  card.innerHTML = `
+    <a class="card-thumb" href="${projectURL}" target="_blank">
+      <img src="${thumbURL}" 
+           alt="${p.title}"
+           loading="lazy"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+
+      <div class="thumb-fallback" style="display:none;">
+        ${p.emoji || '🎮'}
       </div>
-    `;
 
-    item.onclick = () => {
-      const cb = item.querySelector("input");
-      cb.checked = !cb.checked;
-      item.classList.toggle("checked", cb.checked);
-      updateDeleteButton();
-    };
+      <div class="overlay">
+        <div class="overlay-play">▶ Play</div>
+      </div>
+    </a>
 
-    list.appendChild(item);
-  });
+    <div class="card-body">
+      <span class="card-badge ${tagClass}">${p.tag || ""}</span>
+      <div class="card-title">${p.title}</div>
+
+      <div class="card-actions">
+        <a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a>
+        <a class="btn-see" href="${editorURL}" target="_blank">See</a>
+      </div>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
 }
 
 function updateDeleteButton() {
@@ -863,6 +887,7 @@ function handleOverlayClick(e) {
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
   initEmojiPicker();
+  showSkeletons();   // 🔥 new
   listenProjects(); // 🔥 key change
 });
 </script>
