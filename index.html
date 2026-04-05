@@ -420,7 +420,7 @@
 </head>
 <body>
 <!-- 🔐 Login Button (add anywhere you want) -->
-<button class="login-btn" onclick="login()">
+<button class="login-btn" id="authBtn">
   🔐 Login
 </button>
 
@@ -624,14 +624,16 @@ function login() {
 auth.onAuthStateChanged(user => {
   isAdmin = user && user.email === ADMIN_EMAIL;
 
-  const loginBtn = document.querySelector(".login-btn");
+  const btn = document.getElementById("authBtn");
 
   if (user) {
-    loginBtn.textContent = isAdmin
-      ? "✅ Admin Logged In"
-      : "👤 Logged In";
+    btn.textContent = isAdmin ? "🚪 Logout (Admin)" : "🚪 Logout";
+
+    btn.onclick = logout;   // 🔥 switch to logout
   } else {
-    loginBtn.textContent = "🔐 Login";
+    btn.textContent = "🔐 Login";
+
+    btn.onclick = login;    // 🔥 switch to login
   }
 
   applyAccessControl();
@@ -890,6 +892,14 @@ document.addEventListener('DOMContentLoaded', () => {
   showSkeletons();   // 🔥 new
   listenProjects(); // 🔥 key change
 });
+
+function logout() {
+  auth.signOut()
+    .then(() => {
+      alert("Logged out successfully");
+    })
+    .catch(err => alert(err.message));
+}
 </script>
 
 
