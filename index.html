@@ -360,6 +360,11 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 22px rgba(0,0,0,0.25);
 }
+
+.btn-add-project,
+.btn-delete-project {
+  display: none;
+}
   </style>
 </head>
 <body>
@@ -620,6 +625,8 @@
   </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 <script>
 // ===============================
 // 🔥 FIREBASE SETUP
@@ -633,9 +640,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 const ADMIN_EMAIL = "sathish.katakam@gmail.com";
 let isAdmin = false;
+let projects = [];
+
 
 // ===============================
 // 🔐 AUTH
@@ -644,54 +654,39 @@ function login() {
   const provider = new firebase.auth.GoogleAuthProvider();
 
   auth.signInWithPopup(provider)
-    .then(result => {
-      const user = result.user;
-      isAdmin = user.email === ADMIN_EMAIL;
-      alert(isAdmin ? "Admin access granted" : "Read-only access");
-      applyAccessControl();
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Login failed");
-    });
+    .catch(err => alert(err.message));
 }
 
 auth.onAuthStateChanged(user => {
   isAdmin = user && user.email === ADMIN_EMAIL;
+
+  const loginBtn = document.querySelector(".login-btn");
+  if (loginBtn) loginBtn.textContent = isAdmin ? "✅ Admin" : "🔐 Login";
+
   applyAccessControl();
 });
 
 // ===============================
-// 🔒 ACCESS CONTROL (FIXED)
+// 🔒 ACCESS CONTROL
 // ===============================
-function applyAccessControl() {
-  document.querySelectorAll('.btn-delete-project').forEach(btn => {
-    btn.style.display = isAdmin ? 'inline-flex' : 'none';
-  });
+applyAccessControl
+// ===============================
+// 📡 FIRESTORE (REAL DATA)
+// ===============================
+function listenProjects() {
+  db.collection("projects")
+    .orderBy("createdAt","desc")
+    .onSnapshot(snapshot => {
+      projects = snapshot.docs.map(doc => ({
+        docId: doc.id,
+        ...doc.data()
+      }));
+      renderAll();
+    });
 }
 
 // ===============================
-// 📦 STORAGE
-// ===============================
-const STORAGE_KEY = 'sriyan_scratch_projects';
-
-function loadProjects() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveProjects(projects) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-}
-
-let projects = loadProjects();
-
-// ===============================
-// 🎨 EMOJI INIT (FIXED)
+// 🎨 EMOJI
 // ===============================
 const EMOJIS = ["💧","🎮","🐱","🚀","🎨","🎵","🌟","🏆","🌈","🦋","⚡","🐉","🌊","🔥","🎭","🤖","🏃","🎯","🧩","🔬","📖","🧠","✨","🌍","🌻"];
 let selectedEmoji = "🎮";
@@ -717,7 +712,7 @@ function initEmojiPicker() {
 }
 
 // ===============================
-// 🧱 RENDER (UNCHANGED + FIX)
+// 🧱 RENDER (UPDATED)
 // ===============================
 function renderAll() {
   const grid = document.getElementById('projectsGrid');
@@ -735,8 +730,9 @@ function renderAll() {
   }
 
   projects.forEach((p, index) => {
-    const projectURL = `https://scratch.mit.edu/projects/${p.id}`;
+    const projectURL = `https://scratch.mit.edu/projects/${p.scratchId}`;
     const editorURL = `${projectURL}/editor`;
+    const tagClass = `tag-${(p.tag || "default").toLowerCase()}`;
 
     const card = document.createElement('div');
     card.className = 'project-card';
@@ -746,7 +742,7 @@ function renderAll() {
         <div class="thumb-fallback">${p.emoji || '🎮'}</div>
       </a>
       <div class="card-body">
-        <span class="card-badge">${p.tag || ''}</span>
+        <span class="card-badge ${tagClass}">${p.tag || ""}</span>
         <div class="card-title">${p.title}</div>
         <div class="card-actions">
           <a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a>
@@ -760,7 +756,7 @@ function renderAll() {
 }
 
 // ===============================
-// ➕ ADD (FIXED emoji + validation)
+// ➕ ADD (FIRESTORE)
 // ===============================
 function extractId(input) {
   input = input.trim();
@@ -770,7 +766,7 @@ function extractId(input) {
   return null;
 }
 
-function addProject() {
+async function addProject() {
   const rawId = document.getElementById('inputId').value;
   const title = document.getElementById('inputTitle').value.trim();
   const tag = document.getElementById('inputTag').value;
@@ -780,19 +776,19 @@ function addProject() {
   if (!id) return alert("Invalid project ID");
   if (!title) return alert("Enter title");
 
-  if (projects.find(p => p.id === id)) {
-    alert("Already exists");
-    return;
-  }
+  await db.collection("projects").add({
+    scratchId: id,
+    title,
+    emoji: selectedEmoji,
+    tag,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
 
-  projects.push({ id, title, emoji: selectedEmoji, tag });
-  saveProjects(projects);
-  renderAll();
   closeModal();
 }
 
 // ===============================
-// 🗑️ DELETE MODAL (FULL FIX)
+// 🗑️ DELETE (FIRESTORE)
 // ===============================
 function openDeleteModal() {
   const overlay = document.getElementById("deleteModalOverlay");
@@ -810,7 +806,7 @@ function openDeleteModal() {
       <span class="item-emoji">${p.emoji || '🎮'}</span>
       <div class="item-info">
         <div class="item-title">${p.title}</div>
-        <div class="item-id">${p.id}</div>
+        <div class="item-id">${p.scratchId}</div>
       </div>
     `;
 
@@ -830,6 +826,19 @@ function updateDeleteButton() {
   document.getElementById('deleteSelectedBtn').disabled = checked.length === 0;
 }
 
+function deleteSelected() {
+  if (!isAdmin) return alert("Only admin can delete");
+
+  const checked = [...document.querySelectorAll('#deleteCheckboxList input:checked')];
+
+  checked.forEach(async c => {
+    const index = parseInt(c.value);
+    await db.collection("projects").doc(projects[index].docId).delete();
+  });
+
+  closeDeleteModal();
+}
+
 function closeDeleteModal() {
   document.getElementById("deleteModalOverlay").classList.remove("open");
 }
@@ -838,20 +847,6 @@ function handleDeleteOverlayClick(e) {
   if (e.target.id === "deleteModalOverlay") closeDeleteModal();
 }
 
-function deleteSelected() {
-  if (!isAdmin) return alert("Only admin can delete");
-
-  const checked = [...document.querySelectorAll('#deleteCheckboxList input:checked')];
-  const toDelete = new Set(checked.map(c => parseInt(c.value)));
-
-  projects = projects.filter((_, i) => !toDelete.has(i));
-  saveProjects(projects);
-  renderAll();
-  closeDeleteModal();
-}
-
-// ===============================
-// ➕ ADD MODAL FIX
 // ===============================
 function openModal() {
   document.getElementById("modalOverlay").classList.add("open");
@@ -866,11 +861,12 @@ function handleOverlayClick(e) {
 }
 
 // ===============================
-// 🚀 INIT
-// ===============================
 document.addEventListener('DOMContentLoaded', () => {
   initEmojiPicker();
-  renderAll();
+  listenProjects(); // 🔥 key change
 });
 </script>
+
+
+
 </body></html>
