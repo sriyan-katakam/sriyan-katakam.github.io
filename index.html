@@ -737,10 +737,11 @@ function renderAll() {
 
     card.innerHTML = `
       <a class="card-thumb" href="${projectURL}" target="_blank">
-        <img src="${thumbURL}" 
-             alt="${p.title}"
-             loading="lazy"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+	 <img src="${thumbURL}" 
+     alt="${p.title}"
+     loading="lazy"
+     onload="this.classList.add('loaded')"
+     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
 
         <div class="thumb-fallback" style="display:none;">
           ${p.emoji || '🎮'}
@@ -807,51 +808,40 @@ function openDeleteModal() {
 
   overlay.classList.add("open");
   list.innerHTML = "";
-projects.forEach((p) => {
-  const projectURL = `https://scratch.mit.edu/projects/${p.scratchId}`;
-  const editorURL = `${projectURL}/editor`;
-  const tagClass = `tag-${(p.tag || "default").toLowerCase()}`;
-  const thumbURL = `https://uploads.scratch.mit.edu/projects/thumbnails/${p.scratchId}.png`;
 
-  const card = document.createElement('div');
-  card.className = 'project-card';
+  if (projects.length === 0) {
+    list.innerHTML = `<div class="no-projects-msg">No projects to delete</div>`;
+    return;
+  }
 
-  card.innerHTML = `
-    <a class="card-thumb" href="${projectURL}" target="_blank">
-      <img src="${thumbURL}" 
-           alt="${p.title}"
-           loading="lazy"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+  projects.forEach((p, index) => {
+    const item = document.createElement("label");
+    item.className = "project-checkbox-item";
 
-      <div class="thumb-fallback" style="display:none;">
-        ${p.emoji || '🎮'}
+    item.innerHTML = `
+      <input type="checkbox" value="${index}" onchange="updateDeleteButton()" />
+      <div class="item-emoji">${p.emoji || "🎮"}</div>
+      <div class="item-info">
+        <div class="item-title">${p.title}</div>
+        <div class="item-id">ID: ${p.scratchId}</div>
       </div>
+    `;
 
-      <div class="overlay">
-        <div class="overlay-play">▶ Play</div>
-      </div>
-    </a>
-
-    <div class="card-body">
-      <span class="card-badge ${tagClass}">${p.tag || ""}</span>
-      <div class="card-title">${p.title}</div>
-
-      <div class="card-actions">
-        <a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a>
-        <a class="btn-see" href="${editorURL}" target="_blank">See</a>
-      </div>
-    </div>
-  `;
-
-  grid.appendChild(card);
-});
+    list.appendChild(item);
+  });
 }
-
 function updateDeleteButton() {
+  const checkboxes = document.querySelectorAll('#deleteCheckboxList input');
+
+  checkboxes.forEach(cb => {
+    const parent = cb.closest('.project-checkbox-item');
+    if (cb.checked) parent.classList.add('checked');
+    else parent.classList.remove('checked');
+  });
+
   const checked = document.querySelectorAll('#deleteCheckboxList input:checked');
   document.getElementById('deleteSelectedBtn').disabled = checked.length === 0;
 }
-
 function deleteSelected() {
   if (!isAdmin) return alert("Only admin can delete");
 
