@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0058)file:///C:/Users/sathi/Downloads/scratch-portfolio_11.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sriyan's Scratch Projects</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <link href="./SRIYAN&#39;S SCRATCH_files/css2" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --orange: #ff8c00;
       --orange-dark: #c96e00;
@@ -22,330 +21,396 @@
       --border: rgba(0,0,0,0.08);
       --radius: 16px;
       --radius-sm: 10px;
-      --teal: #00b8a0;
       --teal-light: #e0faf6;
-      --purple: #7c5cbf;
       --purple-light: #f0ebff;
-      --pink: #e8457a;
       --pink-light: #ffeef4;
-      --blue: #3b82f6;
       --blue-light: #eff6ff;
-      --green: #22c55e;
       --green-light: #f0fdf4;
     }
-
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    /* ─── HERO ─────────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
       background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 50%, #ff4e8c 100%);
-      padding: 0;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-
-    /* animated floating shapes */
     .hero-shapes { position: absolute; inset: 0; pointer-events: none; }
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.12;
-      animation: float 6s ease-in-out infinite;
-    }
-    .shape-1 { width: 180px; height: 180px; background: white; top: -40px; left: -40px; animation-delay: 0s; }
-    .shape-2 { width: 120px; height: 120px; background: white; top: 20px; right: 10%; animation-delay: 1.5s; }
-    .shape-3 { width: 80px;  height: 80px;  background: white; bottom: 30px; left: 20%; animation-delay: 3s; }
-    .shape-4 { width: 60px;  height: 60px;  background: white; bottom: 10px; right: 25%; animation-delay: 2s; }
-    .shape-5 { width: 200px; height: 200px; background: white; top: 50%; right: -60px; animation-delay: 0.8s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50%       { transform: translateY(-18px) rotate(8deg); }
-    }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 6s ease-in-out infinite; }
+    .shape-1 { width:180px;height:180px;background:white;top:-40px;left:-40px;animation-delay:0s; }
+    .shape-2 { width:120px;height:120px;background:white;top:20px;right:10%;animation-delay:1.5s; }
+    .shape-3 { width:80px;height:80px;background:white;bottom:30px;left:20%;animation-delay:3s; }
+    .shape-4 { width:60px;height:60px;background:white;bottom:10px;right:25%;animation-delay:2s; }
+    .shape-5 { width:200px;height:200px;background:white;top:50%;right:-60px;animation-delay:0.8s; }
+    @keyframes float { 0%,100%{transform:translateY(0)rotate(0)} 50%{transform:translateY(-18px)rotate(8deg)} }
 
     .hero-inner {
       position: relative; z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: flex; flex-direction: column; align-items: center;
       padding: 3.5rem 1.5rem 2.5rem;
     }
-
-    /* avatar circle */	
-		.avatar {
-	  width: 80px;        /* control size here */
-	  height: 80px;
-	  border-radius: 50%;
-	  overflow: hidden;
-	  margin: 0 auto 12px;
-	  background: white;
-	}
-
-	.avatar img {
-	  width: 100%;
-	  height: 100%;
-	  object-fit: cover;   /* THIS prevents stretching */
-	  display: block;      /* removes extra space */
-	}
-    @keyframes pop-in { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
+    .avatar {
+      width:88px;height:88px;border-radius:50%;background:white;
+      display:flex;align-items:center;justify-content:center;font-size:44px;
+      box-shadow:0 6px 32px rgba(0,0,0,0.2),0 0 0 4px rgba(255,255,255,0.4);
+      margin-bottom:1.25rem;
+      animation:pop-in 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes pop-in { from{transform:scale(0.5);opacity:0} to{transform:scale(1);opacity:1} }
     .hero h1 {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      color: white;
-      letter-spacing: 0.01em;
-      line-height: 1.1;
-      text-align: center;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      font-family:'Fredoka One',cursive;font-size:clamp(2rem,6vw,3.2rem);
+      color:white;letter-spacing:0.01em;line-height:1.1;text-align:center;
+      text-shadow:0 2px 12px rgba(0,0,0,0.15);
     }
-
-    .hero-tagline {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.92);
-      margin-top: 0.5rem;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    /* stat pills */
-    .hero-stats {
-      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-      margin-top: 1.4rem;
-    }
+    .hero-tagline { font-size:1.05rem;color:rgba(255,255,255,0.92);margin-top:0.5rem;font-weight:700;text-align:center; }
+    .hero-stats { display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:1.4rem; }
     .stat-pill {
-      background: rgba(255,255,255,0.22);
-      border: 1.5px solid rgba(255,255,255,0.38);
-      color: white;
-      border-radius: 999px;
-      padding: 7px 16px;
-      font-size: 13px; font-weight: 800;
-      display: flex; align-items: center; gap: 6px;
+      background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.38);
+      color:white;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:800;
+      display:flex;align-items:center;gap:6px;
     }
-    .stat-pill .pill-icon { font-size: 16px; }
-
     .hero-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 1.4rem;
-      background: white;
-      color: var(--orange-dark);
-      text-decoration: none; font-weight: 900; font-size: 14px;
-      padding: 11px 24px; border-radius: 999px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
-      transition: transform 0.15s, box-shadow 0.15s;
+      display:inline-flex;align-items:center;gap:6px;margin-top:1.4rem;
+      background:white;color:var(--orange-dark);text-decoration:none;
+      font-weight:900;font-size:14px;padding:11px 24px;border-radius:999px;
+      box-shadow:0 4px 18px rgba(0,0,0,0.18);transition:transform 0.15s,box-shadow 0.15s;
     }
-    .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.22); }
+    .hero-btn:hover { transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.22); }
 
-    /* ─── INTRO CARD ────────────────────────────────────── */
-    .intro-section {
-      max-width: 1080px;
-      margin: -32px auto 0;
-      padding: 0 1.25rem;
-      position: relative; z-index: 3;
-    }
-
+    /* ── INTRO CARD ── */
+    .intro-section { max-width:1080px;margin:-32px auto 0;padding:0 1.25rem;position:relative;z-index:3; }
     .intro-card {
-      background: white;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      padding: 1.75rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.5rem;
+      background:white;border-radius:20px;border:1px solid var(--border);
+      box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:1.75rem 2rem;
+      display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;
     }
+    .intro-block { display:flex;align-items:flex-start;gap:12px; }
+    .intro-icon-wrap { width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0; }
+    .intro-block-text strong { display:block;font-size:14px;font-weight:800;color:var(--text);margin-bottom:2px; }
+    .intro-block-text span { font-size:12px;color:var(--text2);font-weight:600;line-height:1.5; }
 
-    .intro-block {
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .intro-icon-wrap {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-    }
-    .intro-block-text strong {
-      display: block; font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 2px;
-    }
-    .intro-block-text span { font-size: 12px; color: var(--text2); font-weight: 600; line-height: 1.5; }
+    /* ── MAIN ── */
+    .main { max-width:1080px;margin:2.5rem auto 4rem;padding:0 1.25rem; }
+    .section-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;gap:10px;flex-wrap:wrap; }
+    .section-header h2 { font-family:'Fredoka One',cursive;font-size:22px;color:var(--text);letter-spacing:0.01em; }
+    .section-header-right { display:flex;align-items:center;gap:10px; }
+    .count-badge { font-size:13px;color:var(--text3);font-weight:700;background:var(--surface2);border-radius:999px;padding:4px 12px; }
 
-    /* ─── MAIN ──────────────────────────────────────────── */
-    .main {
-      max-width: 1080px;
-      margin: 2.5rem auto 4rem;
-      padding: 0 1.25rem;
+    /* ADD PROJECT BUTTON */
+    .btn-add-project {
+      display:inline-flex;align-items:center;gap:7px;
+      background:var(--orange);color:white;border:none;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;
+      padding:10px 20px;border-radius:999px;
+      box-shadow:0 4px 16px rgba(255,140,0,0.35);
+      transition:background 0.15s,transform 0.12s,box-shadow 0.15s;
     }
+    .btn-add-project:hover { background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,140,0,0.4); }
+    .btn-add-project .plus { font-size:20px;line-height:1; }
 
-    .section-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1.25rem;
+    /* DELETE PROJECT BUTTON */
+    .btn-delete-project {
+      display:inline-flex;align-items:center;gap:7px;
+      background:white;color:#c0245a;border:1.5px solid #f8b4cb;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;
+      padding:10px 20px;border-radius:999px;
+      box-shadow:0 4px 16px rgba(192,36,90,0.12);
+      transition:background 0.15s,transform 0.12s;
     }
-    .section-header h2 {
-      font-family: 'Fredoka One', cursive;
-      font-size: 22px; color: var(--text); letter-spacing: 0.01em;
-    }
-    .section-header .count {
-      font-size: 13px; color: var(--text3); font-weight: 700;
-      background: var(--surface2); border-radius: 999px; padding: 4px 12px;
-    }
+    .btn-delete-project:hover { background:#fff0f5;transform:translateY(-2px); }
 
-    /* ─── GRID ──────────────────────────────────────────── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 20px;
+    /* DELETE MODAL */
+    .delete-modal-header {
+      background:linear-gradient(135deg,#e8457a,#c0245a);
+      padding:1.5rem 1.75rem 1.25rem;
+      display:flex;align-items:center;justify-content:space-between;
     }
+    .delete-modal-header h3 { font-family:'Fredoka One',cursive;font-size:22px;color:white;letter-spacing:0.02em; }
 
-    /* ─── CARD ──────────────────────────────────────────── */
+    .project-checkbox-list { display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto; }
+    .project-checkbox-item {
+      display:flex;align-items:center;gap:12px;
+      padding:10px 14px;border-radius:var(--radius-sm);
+      border:1.5px solid var(--border);background:var(--bg);
+      cursor:pointer;transition:border-color 0.15s,background 0.15s;
+      user-select:none;
+    }
+    .project-checkbox-item:hover { border-color:#f8b4cb;background:#fff5f8; }
+    .project-checkbox-item.checked { border-color:#e8457a;background:#fff0f5; }
+    .project-checkbox-item input[type="checkbox"] { width:18px;height:18px;accent-color:#e8457a;cursor:pointer;flex-shrink:0; }
+    .project-checkbox-item .item-emoji { font-size:22px;flex-shrink:0; }
+    .project-checkbox-item .item-info { flex:1;min-width:0; }
+    .project-checkbox-item .item-title { font-size:14px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .project-checkbox-item .item-id { font-size:11px;color:var(--text3);font-weight:600; }
+    .delete-selected-btn {
+      flex:1;background:#e8457a;color:white;border:none;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;
+      padding:12px;border-radius:var(--radius-sm);transition:background 0.15s;
+    }
+    .delete-selected-btn:hover { background:#c0245a; }
+    .delete-selected-btn:disabled { background:#f5c0d0;cursor:not-allowed; }
+    .no-projects-msg { text-align:center;padding:2rem;color:var(--text3);font-weight:700;font-size:14px; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.5);
+      z-index:1000;
+      align-items:center;justify-content:center;
+      padding:1rem;
+    }
+    .modal-overlay.open { display:flex; }
+
+    .modal {
+      background:white;border-radius:24px;
+      width:100%;max-width:480px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.25);
+      overflow:hidden;
+      animation:slide-up 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes slide-up { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+    .modal-header {
+      background:linear-gradient(135deg,#ff8c00,#ff4e8c);
+      padding:1.5rem 1.75rem 1.25rem;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .modal-header h3 { font-family:'Fredoka One',cursive;font-size:22px;color:white;letter-spacing:0.02em; }
+    .modal-close {
+      background:rgba(255,255,255,0.25);border:none;cursor:pointer;
+      color:white;font-size:20px;width:34px;height:34px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      transition:background 0.15s;
+    }
+    .modal-close:hover { background:rgba(255,255,255,0.4); }
+
+    .modal-body { padding:1.5rem 1.75rem 1.75rem; display:flex;flex-direction:column;gap:1rem; }
+
+    .form-group { display:flex;flex-direction:column;gap:5px; }
+    .form-group label { font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
+      border:1.5px solid var(--border);border-radius:var(--radius-sm);
+      padding:10px 13px;color:var(--text);background:var(--bg);
+      outline:none;transition:border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color:var(--orange); }
+    .form-group textarea { resize:vertical;min-height:70px; }
+
+    .form-hint { font-size:11px;color:var(--text3);font-weight:600;margin-top:2px; }
+
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+
+    /* emoji picker */
+    .emoji-grid { display:flex;flex-wrap:wrap;gap:6px;margin-top:4px; }
+    .emoji-btn {
+      width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);
+      background:var(--surface2);font-size:18px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:border-color 0.12s,background 0.12s;
+    }
+    .emoji-btn:hover { border-color:var(--orange);background:var(--orange-light); }
+    .emoji-btn.selected { border-color:var(--orange);background:var(--orange-light);box-shadow:0 0 0 2px var(--orange-light); }
+
+    .modal-actions { display:flex;gap:10px;margin-top:0.5rem; }
+    .btn-submit {
+      flex:1;background:var(--orange);color:white;border:none;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;
+      padding:12px;border-radius:var(--radius-sm);
+      transition:background 0.15s;
+    }
+    .btn-submit:hover { background:var(--orange-dark); }
+    .btn-cancel {
+      background:var(--surface2);color:var(--text2);border:1px solid var(--border);cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;
+      padding:12px 18px;border-radius:var(--radius-sm);
+      transition:background 0.15s;
+    }
+    .btn-cancel:hover { background:#ede5db; }
+
+    /* error message */
+    .form-error { font-size:12px;color:#e8457a;font-weight:700;display:none; }
+    .form-error.show { display:block; }
+
+    /* ── PROJECT GRID ── */
+    .projects-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px; }
+
+    .empty-state {
+      grid-column:1/-1;text-align:center;padding:4rem 1rem;
+      color:var(--text3);
+    }
+    .empty-state .empty-icon { font-size:56px;margin-bottom:1rem; }
+    .empty-state p { font-size:15px;font-weight:700;margin-bottom:0.5rem;color:var(--text2); }
+    .empty-state span { font-size:13px;font-weight:600; }
+
+    /* ── CARD ── */
     .project-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex; flex-direction: column;
+      background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);
+      overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;
+      display:flex;flex-direction:column;position:relative;
     }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.11);
-    }
+    .project-card:hover { transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,0.11); }
 
-    /* thumbnail */
+    /* delete button on card */
+    .card-delete { display:none; }
+
     .card-thumb {
-      display: block; text-decoration: none;
-      position: relative; aspect-ratio: 4/3;
-      background: var(--surface2); overflow: hidden; cursor: pointer;
+      display:block;text-decoration:none;position:relative;
+      aspect-ratio:4/3;background:var(--surface2);overflow:hidden;cursor:pointer;
     }
-    .card-thumb img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.25s;
-    }
-    .card-thumb:hover img { transform: scale(1.06); }
-
+    .card-thumb img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.25s; }
+    .card-thumb:hover img { transform:scale(1.06); }
     .card-thumb .overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      position:absolute;inset:0;background:rgba(0,0,0,0);
+      display:flex;align-items:center;justify-content:center;transition:background 0.2s;
     }
-    .card-thumb:hover .overlay { background: rgba(0,0,0,0.38); }
-
+    .card-thumb:hover .overlay { background:rgba(0,0,0,0.38); }
     .overlay-play {
-      background: var(--orange);
-      color: white; border-radius: 999px;
-      padding: 12px 30px;
-      font-family: 'Fredoka One', cursive;
-      font-size: 18px; letter-spacing: 0.03em;
-      opacity: 0; transform: scale(0.8) translateY(8px);
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      background:var(--orange);color:white;border-radius:999px;
+      padding:12px 30px;font-family:'Fredoka One',cursive;font-size:18px;
+      opacity:0;transform:scale(0.8) translateY(8px);
+      transition:opacity 0.2s,transform 0.2s;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
     }
-    .card-thumb:hover .overlay-play { opacity: 1; transform: scale(1) translateY(0); }
-
+    .card-thumb:hover .overlay-play { opacity:1;transform:scale(1) translateY(0); }
     .thumb-fallback {
-      position: absolute; inset: 0;
-      display: none; align-items: center; justify-content: center;
-      font-size: 64px;
+      position:absolute;inset:0;display:none;
+      align-items:center;justify-content:center;font-size:64px;
     }
 
-    /* card body */
-    .card-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-
-    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-
+    .card-body { padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:8px; }
     .card-badge {
-      font-size: 10px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 3px 10px; border-radius: 999px;
+      font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;
+      padding:3px 10px;border-radius:999px;
     }
-    /* tag colour variants */
-    .tag-science  { background: var(--teal-light);   color: #007a6e; border: 1px solid #9aeae1; }
-    .tag-game     { background: var(--purple-light);  color: #5b3fa0; border: 1px solid #c4aff5; }
-    .tag-art      { background: var(--pink-light);    color: #c0245a; border: 1px solid #f8b4cb; }
-    .tag-music    { background: var(--blue-light);    color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .tag-story    { background: var(--green-light);   color: #15803d; border: 1px solid #bbf7d0; }
-    .tag-default  { background: var(--orange-light);  color: var(--orange-dark); border: 1px solid var(--orange-border); }
+    .tag-science   { background:var(--teal-light);   color:#007a6e;border:1px solid #9aeae1; }
+    .tag-game      { background:var(--purple-light);  color:#5b3fa0;border:1px solid #c4aff5; }
+    .tag-art       { background:var(--pink-light);    color:#c0245a;border:1px solid #f8b4cb; }
+    .tag-music     { background:var(--blue-light);    color:#1d4ed8;border:1px solid #bfdbfe; }
+    .tag-story     { background:var(--green-light);   color:#15803d;border:1px solid #bbf7d0; }
+    .tag-animation { background:var(--purple-light);  color:#5b3fa0;border:1px solid #c4aff5; }
+    .tag-quiz      { background:var(--teal-light);    color:#007a6e;border:1px solid #9aeae1; }
+    .tag-default   { background:var(--orange-light);  color:var(--orange-dark);border:1px solid var(--orange-border); }
 
-    .card-title { font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.3; }
-    .card-desc  { font-size: 12px; color: var(--text2); line-height: 1.6; flex: 1; }
-
-    .card-actions { display: flex; gap: 8px; margin-top: 4px; }
+    .card-title { font-size:15px;font-weight:800;color:var(--text);line-height:1.3; }
+    .card-desc  { font-size:12px;color:var(--text2);line-height:1.6;flex:1; }
+    .card-actions { display:flex;gap:8px;margin-top:4px; }
     .btn-play {
-      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-      background: var(--orange); color: white; text-decoration: none;
-      font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px;
-      padding: 10px 12px; border-radius: var(--radius-sm);
-      transition: background 0.15s, transform 0.12s;
+      flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+      background:var(--orange);color:white;text-decoration:none;
+      font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;
+      padding:10px 12px;border-radius:var(--radius-sm);transition:background 0.15s;
     }
-    .btn-play:hover { background: var(--orange-dark); transform: scale(1.02); }
+    .btn-play:hover { background:var(--orange-dark); }
     .btn-see {
-      display: flex; align-items: center; justify-content: center;
-      background: var(--surface2); color: var(--text2); text-decoration: none;
-      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
-      padding: 10px 14px; border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      transition: background 0.15s; white-space: nowrap;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--surface2);color:var(--text2);text-decoration:none;
+      font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;
+      padding:10px 14px;border-radius:var(--radius-sm);
+      border:1px solid var(--border);transition:background 0.15s;white-space:nowrap;
     }
-    .btn-see:hover { background: #ede5db; }
+    .btn-see:hover { background:#ede5db; }
 
-    /* ─── FOOTER ────────────────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 2.5rem 1rem;
-      font-size: 13px; color: var(--text3); font-weight: 600;
-      border-top: 1px solid var(--border);
+      text-align:center;padding:2.5rem 1rem;
+      font-size:13px;color:var(--text3);font-weight:600;
+      border-top:1px solid var(--border);
     }
-    footer a { color: var(--orange); text-decoration: none; font-weight: 700; }
-    footer a:hover { text-decoration: underline; }
-    .footer-heart { color: #e8457a; }
+    footer a { color:var(--orange);text-decoration:none;font-weight:700; }
+    footer a:hover { text-decoration:underline; }
+    .footer-heart { color:#e8457a; }
 
-    /* ─── RESPONSIVE ────────────────────────────────────── */
-    @media (max-width: 720px) {
-      .intro-card { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem; }
-    }
-    @media (max-width: 520px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 7px; }
-    }
+    @media (max-width:720px) { .intro-card { grid-template-columns:1fr;gap:1rem;padding:1.25rem; } }
+    @media (max-width:520px) { .projects-grid{grid-template-columns:1fr} .form-row{grid-template-columns:1fr} }
+	
+	.login-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: white;
+  color: #ff6b35;
+
+  border: none;
+  padding: 10px 18px;
+
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 9999;
+
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+}
   </style>
 </head>
 <body>
+<!-- 🔐 Login Button (add anywhere you want) -->
+<button class="login-btn" onclick="login()">
+  🔐 Login
+</button>
 
-<!-- ── HERO ── -->
+<!-- 🗑️ Delete Button (already in your UI, keep it) -->
+<button class="btn-delete-project" onclick="openDeleteModal()">
+  Delete Project
+</button>
+
+<!-- Your full existing HTML stays unchanged -->
+<!-- (projects grid, modals, etc.) -->
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+
+<!-- HERO -->
 <header class="hero">
   <div class="hero-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
+    <div class="shape shape-1"></div><div class="shape shape-2"></div>
+    <div class="shape shape-3"></div><div class="shape shape-4"></div>
     <div class="shape shape-5"></div>
   </div>
   <div class="hero-inner">
-   <div class="avatar">
-  <img src="images/sriyan.png" alt="Sriyan" />
-  </div>
-
+    <div class="avatar">👦</div>
     <h1>Sriyan's Scratch World</h1>
     <p class="hero-tagline">5th grader · coder · creator · explorer</p>
-
     <div class="hero-stats">
-      <div class="stat-pill"><span class="pill-icon">🎓</span> Class 5 Student</div>
-      <div class="stat-pill"><span class="pill-icon">💻</span> Scratch Coder</div>
-      <div class="stat-pill"><span class="pill-icon">🌍</span> Science Explorer</div>
+      <div class="stat-pill">🎓 Class 5 Student</div>
+      <div class="stat-pill">💻 Scratch Coder</div>
+      <div class="stat-pill">🌍 Science Explorer</div>
     </div>
-
     <a class="hero-btn" href="https://scratch.mit.edu/users/sriyankatakam" target="_blank" rel="noopener">
       🐱 View Scratch Profile
     </a>
   </div>
 </header>
 
-<!-- ── INTRO CARD ── -->
+<!-- INTRO -->
 <section class="intro-section">
   <div class="intro-card">
     <div class="intro-block">
       <div class="intro-icon-wrap" style="background:#fff4e0;">🚀</div>
       <div class="intro-block-text">
         <strong>Young Coder</strong>
-        <span>I'm Sriyan, a 5th class student learning to build games, animations & science projects on Scratch.</span>
+        <span>I'm Sriyan, a 5th class student building games, animations &amp; science projects on Scratch.</span>
       </div>
     </div>
     <div class="intro-block">
@@ -358,117 +423,454 @@
     <div class="intro-block">
       <div class="intro-icon-wrap" style="background:#f0ebff;">🎮</div>
       <div class="intro-block-text">
-        <strong>Play & Learn</strong>
-        <span>Click any project below to play it on Scratch — no account or login needed for visitors!</span>
+        <strong>Play &amp; Learn</strong>
+        <span>Click any project below to play it on Scratch — no account or login needed!</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PROJECTS ── -->
+<!-- MAIN -->
 <main class="main">
   <div class="section-header">
     <h2>🌟 My Projects</h2>
-    <span class="count" id="countLabel"></span>
+    <div class="section-header-right">
+      <span class="count-badge" id="countLabel">6 projects</span>
+      <button class="btn-delete-project" onclick="openDeleteModal()">
+        🗑️ Delete Project
+      </button>
+      <button class="btn-add-project" onclick="openModal()">
+        <span class="plus">+</span> Add Project
+      </button>
+    </div>
   </div>
-  <div class="projects-grid" id="projectsGrid"></div>
+  <div class="projects-grid" id="projectsGrid"><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1113657177" target="_blank" rel="noopener" title="Play Water Cycle">
+          <img src="file:///C:/Users/sathi/Downloads/images/water-cycle.png" alt="Water Cycle" loading="lazy" onerror="this.style.display=&#39;none&#39;;this.parentElement.querySelector(&#39;.thumb-fallback&#39;).style.display=&#39;flex&#39;;" style="display: none;">
+          <div class="thumb-fallback" style="display: flex;">💧</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-science">Science</span>
+          <div class="card-title">Water Cycle</div>
+          <div class="card-desc">An interactive Science project explaining how the water cycle works — evaporation, condensation &amp; precipitation!</div>
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1113657177" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1113657177/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(0)">🗑️ Remove Project</button>
+      </div><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1093646288" target="_blank" rel="noopener" title="Play Tank shooting game">
+          
+          <div class="thumb-fallback" style="display:flex">🎮</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-game">Game</span>
+          <div class="card-title">Tank shooting game</div>
+          
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1093646288" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1093646288/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(1)">🗑️ Remove Project</button>
+      </div><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246046533" target="_blank" rel="noopener" title="Play noise tester">
+          
+          <div class="thumb-fallback" style="display:flex">🎵</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-music">Music</span>
+          <div class="card-title">noise tester</div>
+          
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1246046533" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1246046533/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(2)">🗑️ Remove Project</button>
+      </div><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246046028" target="_blank" rel="noopener" title="Play art book">
+          
+          <div class="thumb-fallback" style="display:flex">🎨</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-art">Art</span>
+          <div class="card-title">art book</div>
+          
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1246046028" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1246046028/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(3)">🗑️ Remove Project</button>
+      </div><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246045199" target="_blank" rel="noopener" title="Play going up">
+          
+          <div class="thumb-fallback" style="display:flex">🎮</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-game">Game</span>
+          <div class="card-title">going up</div>
+          
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1246045199" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1246045199/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(4)">🗑️ Remove Project</button>
+      </div><div class="project-card">
+        <a class="card-thumb" href="https://scratch.mit.edu/projects/1246044267" target="_blank" rel="noopener" title="Play piano">
+          
+          <div class="thumb-fallback" style="display:flex">🎵</div>
+          <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+        </a>
+        <div class="card-body">
+          <span class="card-badge tag-music">Music</span>
+          <div class="card-title">piano</div>
+          
+          <div class="card-actions">
+            <a class="btn-play" href="https://scratch.mit.edu/projects/1246044267" target="_blank" rel="noopener">▶ Play on Scratch</a>
+            <a class="btn-see" href="https://scratch.mit.edu/projects/1246044267/editor" target="_blank" rel="noopener">See inside</a>
+          </div>
+        </div>
+        <button class="card-delete" onclick="deleteProject(5)">🗑️ Remove Project</button>
+      </div></div>
 </main>
 
-<!-- ── FOOTER ── -->
 <footer>
   Made with <span class="footer-heart">♥</span> by
   <a href="https://scratch.mit.edu/users/sriyankatakam" target="_blank">Sriyan (sriyankatakam)</a>
-  &nbsp;·&nbsp;
-  Powered by <a href="https://scratch.mit.edu" target="_blank">Scratch – MIT</a>
-  &nbsp;·&nbsp;
-  No login needed · All projects are public
+  &nbsp;·&nbsp; Powered by <a href="https://scratch.mit.edu/" target="_blank">Scratch – MIT</a>
+  &nbsp;·&nbsp; No login needed
 </footer>
 
-<script>
-// ═══════════════════════════════════════════════════════════════════
-//  ADD YOUR PROJECTS HERE
-//
-//  id    → number from: scratch.mit.edu/projects/XXXXXXX
-//  title → project name
-//  desc  → one sentence description
-//  image → "images/filename.png"  (screenshot saved in images/ folder)
-//  emoji → shown if image is missing
-//  tag   → Science | Game | Art | Music | Story | Animation | Quiz
-// ═══════════════════════════════════════════════════════════════════
-const MY_PROJECTS = [
-  {
-    id:    "1113657177",
-    title: "Water Cycle",
-    desc:  "An interactive Science project explaining how the water cycle works — evaporation, condensation & precipitation!",
-    image: "images/watercycle.png",
-    emoji: "💧",
-    tag:   "Science"
-  },
-  // ── COPY & PASTE A BLOCK BELOW TO ADD MORE ───────────────────────
-  // {
-  //   id:    "YOUR_PROJECT_ID",
-  //   title: "Project Name",
-  //   desc:  "What this project is about.",
-  //   image: "images/your-screenshot.png",
-  //   emoji: "🎮",
-  //   tag:   "Game"
-  // },
-];
+<!-- DELETE PROJECT MODAL -->
+<div class="modal-overlay" id="deleteModalOverlay" onclick="handleDeleteOverlayClick(event)">
+  <div class="modal">
+    <div class="delete-modal-header">
+      <h3>🗑️ Delete Projects</h3>
+      <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="project-checkbox-list" id="deleteCheckboxList"></div>
+      <div class="modal-actions" style="margin-top:0.5rem;">
+        <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+        <button class="delete-selected-btn" id="deleteSelectedBtn" onclick="deleteSelected()" disabled="">
+          🗑️ Delete Selected
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-// tag → CSS class mapping
-const TAG_CLASS = {
-  science:   'tag-science',
-  game:      'tag-game',
-  art:       'tag-art',
-  music:     'tag-music',
-  story:     'tag-story',
-  animation: 'tag-game',
-  quiz:      'tag-science',
+<!-- ADD PROJECT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Add New Project</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label>Scratch Project URL or ID *</label>
+        <input type="text" id="inputId" placeholder="https://scratch.mit.edu/projects/123456789">
+        <span class="form-hint">Paste the full URL or just the number from the address bar</span>
+        <span class="form-error" id="errorId">Please enter a valid Scratch project URL or ID.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Project Title *</label>
+        <input type="text" id="inputTitle" placeholder="e.g. Water Cycle" maxlength="60">
+        <span class="form-error" id="errorTitle">Please enter a title.</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category / Tag</label>
+          <select id="inputTag">
+            <option value="Science">🔬 Science</option>
+            <option value="Game" selected="">🎮 Game</option>
+            <option value="Art">🎨 Art</option>
+            <option value="Music">🎵 Music</option>
+            <option value="Story">📖 Story</option>
+            <option value="Animation">✨ Animation</option>
+            <option value="Quiz">🧠 Quiz</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Pick an Emoji</label>
+          <div class="emoji-grid" id="emojiGrid"></div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-submit" onclick="addProject()">✅ Add Project</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ===============================
+// 🔥 FIREBASE SETUP
+// ===============================
+const firebaseConfig = {
+  apiKey: "AIzaSyBb1BAW7lQ5kCGL38FYKlPc8e7d1X9i5jE",
+  authDomain: "sriyan-portfolio.firebaseapp.com",
+  projectId: "sriyan-portfolio",
+  appId: "1:265311303054:web:64e8eb6a7a8f8d9853a0df"
 };
 
-function tagClass(tag) {
-  return TAG_CLASS[(tag || '').toLowerCase()] || 'tag-default';
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+const ADMIN_EMAIL = "sathish.katakam@gmail.com";
+let isAdmin = false;
+
+// ===============================
+// 🔐 AUTH
+// ===============================
+function login() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      isAdmin = user.email === ADMIN_EMAIL;
+      alert(isAdmin ? "Admin access granted" : "Read-only access");
+      applyAccessControl();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Login failed");
+    });
 }
 
+auth.onAuthStateChanged(user => {
+  isAdmin = user && user.email === ADMIN_EMAIL;
+  applyAccessControl();
+});
+
+// ===============================
+// 🔒 ACCESS CONTROL (FIXED)
+// ===============================
+function applyAccessControl() {
+  document.querySelectorAll('.btn-delete-project').forEach(btn => {
+    btn.style.display = isAdmin ? 'inline-flex' : 'none';
+  });
+}
+
+// ===============================
+// 📦 STORAGE
+// ===============================
+const STORAGE_KEY = 'sriyan_scratch_projects';
+
+function loadProjects() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveProjects(projects) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+}
+
+let projects = loadProjects();
+
+// ===============================
+// 🎨 EMOJI INIT (FIXED)
+// ===============================
+const EMOJIS = ["💧","🎮","🐱","🚀","🎨","🎵","🌟","🏆","🌈","🦋","⚡","🐉","🌊","🔥","🎭","🤖","🏃","🎯","🧩","🔬","📖","🧠","✨","🌍","🌻"];
+let selectedEmoji = "🎮";
+
+function initEmojiPicker() {
+  const grid = document.getElementById("emojiGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+  EMOJIS.forEach(e => {
+    const btn = document.createElement("button");
+    btn.className = "emoji-btn";
+    btn.textContent = e;
+
+    btn.onclick = () => {
+      selectedEmoji = e;
+      document.querySelectorAll(".emoji-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    };
+
+    grid.appendChild(btn);
+  });
+}
+
+// ===============================
+// 🧱 RENDER (UNCHANGED + FIX)
+// ===============================
 function renderAll() {
   const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = '';
+
   document.getElementById('countLabel').textContent =
-    MY_PROJECTS.length + ' project' + (MY_PROJECTS.length !== 1 ? 's' : '');
+    projects.length + ' project' + (projects.length !== 1 ? 's' : '');
 
-  MY_PROJECTS.forEach(p => {
+  if (projects.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🐱</div>
+      <p>No projects yet!</p>
+    </div>`;
+    return;
+  }
+
+  projects.forEach((p, index) => {
     const projectURL = `https://scratch.mit.edu/projects/${p.id}`;
-    const editorURL  = `https://scratch.mit.edu/projects/${p.id}/editor`;
-
-    const imgHTML = p.image
-      ? `<img src="${p.image}" alt="${p.title}" loading="lazy"
-             onerror="this.style.display='none';this.parentElement.querySelector('.thumb-fallback').style.display='flex';" />`
-      : '';
+    const editorURL = `${projectURL}/editor`;
 
     const card = document.createElement('div');
     card.className = 'project-card';
+
     card.innerHTML = `
-      <a class="card-thumb" href="${projectURL}" target="_blank" rel="noopener" title="Play ${p.title}">
-        ${imgHTML}
-        <div class="thumb-fallback" style="${p.image ? 'display:none' : 'display:flex'}">${p.emoji || '🎮'}</div>
-        <div class="overlay"><div class="overlay-play">▶ Play</div></div>
+      <a class="card-thumb" href="${projectURL}" target="_blank">
+        <div class="thumb-fallback">${p.emoji || '🎮'}</div>
       </a>
       <div class="card-body">
-        <div class="card-top">
-          <span class="card-badge ${tagClass(p.tag)}">${p.tag || 'Project'}</span>
-        </div>
+        <span class="card-badge">${p.tag || ''}</span>
         <div class="card-title">${p.title}</div>
-        ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
         <div class="card-actions">
-          <a class="btn-play" href="${projectURL}" target="_blank" rel="noopener">▶ Play on Scratch</a>
-          <a class="btn-see"  href="${editorURL}"  target="_blank" rel="noopener">See inside</a>
+          <a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a>
+          <a class="btn-see" href="${editorURL}" target="_blank">See</a>
         </div>
       </div>
     `;
+
     grid.appendChild(card);
   });
 }
 
-renderAll();
+// ===============================
+// ➕ ADD (FIXED emoji + validation)
+// ===============================
+function extractId(input) {
+  input = input.trim();
+  const match = input.match(/projects\/(\d+)/);
+  if (match) return match[1];
+  if (/^\d+$/.test(input)) return input;
+  return null;
+}
+
+function addProject() {
+  const rawId = document.getElementById('inputId').value;
+  const title = document.getElementById('inputTitle').value.trim();
+  const tag = document.getElementById('inputTag').value;
+
+  const id = extractId(rawId);
+
+  if (!id) return alert("Invalid project ID");
+  if (!title) return alert("Enter title");
+
+  if (projects.find(p => p.id === id)) {
+    alert("Already exists");
+    return;
+  }
+
+  projects.push({ id, title, emoji: selectedEmoji, tag });
+  saveProjects(projects);
+  renderAll();
+  closeModal();
+}
+
+// ===============================
+// 🗑️ DELETE MODAL (FULL FIX)
+// ===============================
+function openDeleteModal() {
+  const overlay = document.getElementById("deleteModalOverlay");
+  const list = document.getElementById("deleteCheckboxList");
+
+  overlay.classList.add("open");
+  list.innerHTML = "";
+
+  projects.forEach((p, i) => {
+    const item = document.createElement("label");
+    item.className = "project-checkbox-item";
+
+    item.innerHTML = `
+      <input type="checkbox" value="${i}">
+      <span class="item-emoji">${p.emoji || '🎮'}</span>
+      <div class="item-info">
+        <div class="item-title">${p.title}</div>
+        <div class="item-id">${p.id}</div>
+      </div>
+    `;
+
+    item.onclick = () => {
+      const cb = item.querySelector("input");
+      cb.checked = !cb.checked;
+      item.classList.toggle("checked", cb.checked);
+      updateDeleteButton();
+    };
+
+    list.appendChild(item);
+  });
+}
+
+function updateDeleteButton() {
+  const checked = document.querySelectorAll('#deleteCheckboxList input:checked');
+  document.getElementById('deleteSelectedBtn').disabled = checked.length === 0;
+}
+
+function closeDeleteModal() {
+  document.getElementById("deleteModalOverlay").classList.remove("open");
+}
+
+function handleDeleteOverlayClick(e) {
+  if (e.target.id === "deleteModalOverlay") closeDeleteModal();
+}
+
+function deleteSelected() {
+  if (!isAdmin) return alert("Only admin can delete");
+
+  const checked = [...document.querySelectorAll('#deleteCheckboxList input:checked')];
+  const toDelete = new Set(checked.map(c => parseInt(c.value)));
+
+  projects = projects.filter((_, i) => !toDelete.has(i));
+  saveProjects(projects);
+  renderAll();
+  closeDeleteModal();
+}
+
+// ===============================
+// ➕ ADD MODAL FIX
+// ===============================
+function openModal() {
+  document.getElementById("modalOverlay").classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+}
+
+function handleOverlayClick(e) {
+  if (e.target.id === "modalOverlay") closeModal();
+}
+
+// ===============================
+// 🚀 INIT
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+  initEmojiPicker();
+  renderAll();
+});
 </script>
-</body>
-</html>
+</body></html>
