@@ -830,6 +830,8 @@ function openDeleteModal() {
     list.appendChild(item);
   });
 }
+
+
 function updateDeleteButton() {
   const checkboxes = document.querySelectorAll('#deleteCheckboxList input');
 
@@ -842,6 +844,7 @@ function updateDeleteButton() {
   const checked = document.querySelectorAll('#deleteCheckboxList input:checked');
   document.getElementById('deleteSelectedBtn').disabled = checked.length === 0;
 }
+
 function deleteSelected() {
   if (!isAdmin) return alert("Only admin can delete");
 
