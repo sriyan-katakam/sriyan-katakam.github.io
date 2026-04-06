@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sriyan's Portfolio</title>
+  <meta name="description" content="Sriyan Katakam — 5th grader, coder, creator, and explorer. Explore Scratch projects, AI experiments, and web apps.">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #080b14;
+      --bg-dark: #0c1020;
+      --bg-card: rgba(16, 22, 40, 0.7);
+      --bg-surface: rgba(22, 30, 52, 0.75);
+      --border-dark: rgba(255,255,255,0.07);
+      --border-glow: rgba(255,255,255,0.12);
+      --text-primary: #eaf0fa;
+      --text-secondary: #a0aec0;
+      --text-tertiary: #636e82;
+      --scratch-primary: #ff6b35;
+      --scratch-light: rgba(255, 107, 53, 0.12);
+      --ai-primary: #00d4ff;
+      --ai-light: rgba(0, 212, 255, 0.12);
+      --apps-primary: #7c3aed;
+      --apps-light: rgba(124, 58, 237, 0.12);
+      --accent-teal: #14b8a6;
+      --accent-pink: #ec4899;
+      --accent-yellow: #fbbf24;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --glass-blur: blur(16px);
+      --transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── ANIMATED BG ── */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(160deg, #080b14 0%, #0f1535 25%, #1a0a2e 50%, #0d1a3a 75%, #080b14 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .bg-glow {
+      position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none;
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+    .glow-1 { width: 500px; height: 500px; background: rgba(124,58,237,0.12); top: -100px; left: -100px; }
+    .glow-2 { width: 400px; height: 400px; background: rgba(0,212,255,0.08); top: 30%; right: -80px; animation-delay: 3s; }
+    .glow-3 { width: 350px; height: 350px; background: rgba(255,107,53,0.08); bottom: 10%; left: 20%; animation-delay: 5s; }
+    @keyframes pulseGlow {
+      0%,100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* ── MINIMAL TOPBAR ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(8, 11, 20, 0.6);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-avatar {
+      width: 34px; height: 34px; border-radius: 50%; overflow: hidden;
+      border: 2px solid var(--scratch-primary);
+      box-shadow: 0 0 12px rgba(255,107,53,0.25);
+      flex-shrink: 0;
+    }
+    .topbar-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .topbar-name {
+      font-family: 'Fredoka One', cursive; font-size: 16px;
+      background: linear-gradient(135deg, #ff6b35, #00d4ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .login-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(22,30,52,0.8); color: var(--scratch-primary);
+      border: 1px solid var(--border-dark); padding: 7px 16px;
+      border-radius: 999px; font-weight: 800; font-size: 12px;
+      cursor: pointer; transition: all 0.3s;
+      backdrop-filter: var(--glass-blur);
+    }
+    .login-btn:hover {
+      border-color: var(--scratch-primary);
+      box-shadow: 0 0 16px rgba(255,107,53,0.15);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: auto; display: flex; align-items: center; justify-content: center;
+      padding-top: 60px;
+	  padding-bottom: 10px;
+	  align-items: flex-start;
+    }
+    .hero-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.06; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 280px; height: 280px; background: var(--scratch-primary); top: -80px; left: -80px; }
+    .shape-2 { width: 200px; height: 200px; background: var(--ai-primary); top: 10%; right: -50px; animation-delay: 1.5s; }
+    .shape-3 { width: 150px; height: 150px; background: var(--apps-primary); bottom: 20%; left: 10%; animation-delay: 3s; }
+    .shape-4 { width: 120px; height: 120px; background: var(--accent-teal); bottom: 10%; right: 10%; animation-delay: 2s; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(10deg); } }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      padding: 0.5rem 1.5rem 0.5rem; text-align: center; max-width: 800px;
+    }
+    .avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: var(--bg-surface); border: 3px solid var(--scratch-primary);
+      display: flex; align-items: center; justify-content: center; font-size: 50px;
+      box-shadow: 0 0 40px rgba(255,107,53,0.3), 0 0 80px rgba(255,107,53,0.1);
+      margin-bottom: 1.5rem; overflow: hidden;
+      animation: pop-in 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+	  margin-top: 0;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @keyframes pop-in { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      line-height: 1.1; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ff6b35 0%, #00d4ff 50%, #7c3aed 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 2px 10px rgba(255,107,53,0.2));
+    }
+    .hero-tagline { display: none; font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.8rem; font-weight: 700; }
+    .hero-stats { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start;;   margin: 0; }
+    .stat-pill {
+      background: var(--bg-surface); border: 1px solid var(--border-dark);
+      color: var(--text-primary); border-radius: 999px; padding: 10px 18px;
+      font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px;
+      backdrop-filter: var(--glass-blur); transition: all 0.3s;
+    }
+    .stat-pill:hover { border-color: var(--scratch-primary); background: var(--scratch-light); box-shadow: 0 0 20px rgba(255,107,53,0.1); }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--scratch-primary), var(--ai-primary));
+      color: white; text-decoration: none; font-weight: 900; font-size: 15px;
+      padding: 13px 28px; border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(255,107,53,0.3); transition: all 0.3s;
+    }
+    .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255,107,53,0.4); }
+
+    /* ── INTRO ── */
+    .intro-section { max-width: 1200px;  margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 3; margin-top: 0.5rem; }
+    .intro-card {
+      background: var(--bg-surface); border-radius: 20px; border: 1px solid var(--border-glow);
+      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.4); padding: 2rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+    }
+    .intro-block { display: flex; align-items: flex-start; gap: 14px; }
+    .intro-icon-wrap {
+      width: 50px; height: 50px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+      flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border-dark);
+    }
+    .intro-block-text strong {
+      display: block; font-size: 15px; font-weight: 800; margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--scratch-primary), var(--ai-primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .intro-block-text span { font-size: 13px; color: var(--text-secondary); font-weight: 600; line-height: 1.6; }
+
+    /* ── MAIN & TABS ── */
+    .main { max-width: 1200px; margin: 1rem auto; padding: 0 1.25rem; position: relative; z-index: 1; }
+    .tabs-nav {
+      display: flex; gap: 6px; margin-bottom: 2.5rem;
+      background: var(--bg-surface); border-radius: 14px; padding: 6px;
+      border: 1px solid var(--border-dark); backdrop-filter: var(--glass-blur);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+      border: none; background: transparent; color: var(--text-secondary);
+      font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+      cursor: pointer; border-radius: 10px; transition: all 0.3s; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+    .tab-btn.active { background: var(--scratch-light); color: var(--scratch-primary); box-shadow: 0 0 20px rgba(255,107,53,0.1); }
+    .tab-btn.active[data-tab="ai"] { background: var(--ai-light); color: var(--ai-primary); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
+    .tab-btn.active[data-tab="apps"] { background: var(--apps-light); color: var(--apps-primary); box-shadow: 0 0 20px rgba(124,58,237,0.1); }
+
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 10px; flex-wrap: wrap; }
+    .section-header h2 {
+      font-family: 'Fredoka One', cursive; font-size: 24px; letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-header-right { display: flex; align-items: center; gap: 12px; }
+    .count-badge {
+      font-size: 12px; color: var(--text-secondary); font-weight: 700;
+      background: var(--bg-surface); border: 1px solid var(--border-dark);
+      border-radius: 999px; padding: 6px 16px; backdrop-filter: var(--glass-blur);
+    }
+
+    /* ── BUTTONS ── */
+    .btn-add-project, .btn-delete-project {
+      display: none; align-items: center; gap: 7px; border: none; cursor: pointer;
+      font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 13px;
+      padding: 9px 18px; border-radius: 999px; transition: all 0.3s;
+    }
+    .btn-add-project { background: var(--scratch-primary); color: white; box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
+    .btn-add-project:hover { background: #ff5222; transform: translateY(-2px); }
+    .btn-delete-project { background: transparent; color: var(--accent-pink); border: 1.5px solid rgba(236,72,153,0.3); }
+    .btn-delete-project:hover { background: var(--accent-pink); color: white; border-color: var(--accent-pink); transform: translateY(-2px); }
+
+    /* ── PROJECT GRID & CARDS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-tertiary); }
+    .empty-state .empty-icon { font-size: 64px; margin-bottom: 1rem; opacity: 0.8; }
+    .empty-state p { font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-secondary); }
+    .empty-state span { font-size: 13px; font-weight: 600; }
+
+    .project-card {
+      background: var(--bg-surface); border-radius: var(--radius);
+      border: 1px solid var(--border-dark); overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      display: flex; flex-direction: column; position: relative;
+      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,53,0.08);
+      border-color: rgba(255,107,53,0.2);
+    }
+    .card-thumb {
+      display: block; text-decoration: none; position: relative;
+      aspect-ratio: 16 / 10; background: var(--bg-card); overflow: hidden; cursor: pointer;
+    }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; opacity: 0; }
+    .card-thumb img.loaded { opacity: 1; }
+    .card-thumb:hover img { transform: scale(1.08); }
+    .card-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+    .card-thumb:hover .overlay { background: rgba(0,0,0,0.5); }
+    .overlay-play {
+      background: var(--scratch-primary); color: white; border-radius: 999px;
+      padding: 10px 24px; font-family: 'Fredoka One', cursive; font-size: 16px;
+      opacity: 0; transform: scale(0.8); transition: all 0.3s;
+      box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+    }
+    .card-thumb:hover .overlay-play { opacity: 1; transform: scale(1); }
+    .thumb-fallback {
+      position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+      font-size: 64px; background: linear-gradient(135deg, var(--bg-card), var(--bg-surface));
+    }
+    .card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .card-badge {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 5px 12px; border-radius: 999px; width: fit-content;
+      background: var(--scratch-light); color: var(--scratch-primary);
+      border: 1px solid rgba(255,107,53,0.2); text-shadow: 0 0 8px rgba(255,107,53,0.3);
+    }
+    .card-badge.ai { background: var(--ai-light); color: var(--ai-primary); border-color: rgba(0,212,255,0.2); text-shadow: 0 0 8px rgba(0,212,255,0.3); }
+    .card-badge.apps { background: var(--apps-light); color: var(--apps-primary); border-color: rgba(124,58,237,0.2); text-shadow: 0 0 8px rgba(124,58,237,0.3); }
+    .card-title { font-size: 16px; font-weight: 800; color: var(--text-primary); line-height: 1.3; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+    .card-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .btn-play {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: var(--scratch-primary); color: white; text-decoration: none;
+      font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 14px;
+      padding: 10px; border-radius: var(--radius-sm); transition: all 0.3s;
+    }
+    .btn-play:hover { background: #ff5222; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.3); }
+    .btn-see {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-card); color: var(--text-secondary); text-decoration: none;
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+      padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-dark);
+      transition: all 0.3s; white-space: nowrap;
+    }
+    .btn-see:hover { background: var(--border-dark); color: var(--text-primary); }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: rgba(22,30,52,0.95); border-radius: 24px; border: 1px solid var(--border-glow);
+      width: 100%; max-width: 500px; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      overflow: hidden; animation: slide-up 0.3s var(--transition);
+      backdrop-filter: var(--glass-blur);
+    }
+    @keyframes slide-up { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-header {
+      background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,212,255,0.1));
+      border-bottom: 1px solid var(--border-dark); padding: 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h3 {
+      font-family: 'Fredoka One', cursive; font-size: 20px;
+      background: linear-gradient(135deg, var(--scratch-primary), var(--ai-primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .modal-close {
+      background: var(--bg-card); border: 1px solid var(--border-dark); cursor: pointer;
+      color: var(--text-secondary); font-size: 18px; width: 34px; height: 34px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+    }
+    .modal-close:hover { background: var(--scratch-primary); color: white; border-color: var(--scratch-primary); }
+    .modal-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 11px; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-group input, .form-group select, .form-group textarea {
+      font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600;
+      border: 1.5px solid var(--border-dark); border-radius: var(--radius-sm);
+      padding: 10px 14px; color: var(--text-primary); background: var(--bg-card); outline: none; transition: all 0.3s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--scratch-primary); box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-hint { font-size: 11px; color: var(--text-tertiary); font-weight: 600; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .emoji-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .emoji-btn {
+      width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border-dark);
+      background: var(--bg-card); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+    }
+    .emoji-btn:hover { border-color: var(--scratch-primary); background: var(--scratch-light); transform: scale(1.1); }
+    .emoji-btn.selected { border-color: var(--scratch-primary); background: var(--scratch-light); box-shadow: 0 0 0 3px rgba(255,107,53,0.2); }
+    .modal-actions { display: flex; gap: 12px; margin-top: 0.5rem; }
+    .btn-submit, .delete-selected-btn {
+      flex: 1; background: linear-gradient(135deg, var(--scratch-primary), #ff5222);
+      color: white; border: none; cursor: pointer; font-family: 'Nunito', sans-serif;
+      font-weight: 900; font-size: 14px; padding: 12px; border-radius: var(--radius-sm); transition: all 0.3s;
+    }
+    .btn-submit:hover, .delete-selected-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.3); }
+    .btn-cancel {
+      background: transparent; color: var(--text-secondary); border: 1.5px solid var(--border-dark);
+      cursor: pointer; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+      padding: 12px 18px; border-radius: var(--radius-sm); transition: all 0.3s;
+    }
+    .btn-cancel:hover { background: var(--bg-card); border-color: var(--text-secondary); }
+
+    /* Delete modal */
+    .delete-modal-header {
+      background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(124,58,237,0.15));
+      padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .delete-modal-header h3 { font-family: 'Fredoka One', cursive; font-size: 20px; color: var(--accent-pink); }
+    .project-checkbox-list { display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; }
+    .project-checkbox-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--border-dark);
+      background: var(--bg-card); cursor: pointer; transition: all 0.3s; user-select: none;
+    }
+    .project-checkbox-item:hover { border-color: var(--accent-pink); background: rgba(236,72,153,0.08); }
+    .project-checkbox-item.checked { border-color: var(--accent-pink); background: rgba(236,72,153,0.12); }
+    .project-checkbox-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; accent-color: var(--accent-pink); }
+    .project-checkbox-item .item-emoji { font-size: 24px; flex-shrink: 0; }
+    .project-checkbox-item .item-info { flex: 1; min-width: 0; }
+    .project-checkbox-item .item-title { font-size: 14px; font-weight: 800; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .project-checkbox-item .item-id { font-size: 11px; color: var(--text-tertiary); font-weight: 600; }
+    .delete-selected-btn:disabled { background: var(--border-dark); cursor: not-allowed; box-shadow: none; }
+    .no-projects-msg { text-align: center; padding: 2rem; color: var(--text-tertiary); font-weight: 700; font-size: 14px; }
+    .form-error { font-size: 12px; color: var(--accent-pink); font-weight: 700; display: none; }
+    .form-error.show { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 3rem 1rem; font-size: 13px;
+      color: var(--text-secondary); font-weight: 600;
+      border-top: 1px solid var(--border-dark); margin-top: 4rem;
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--scratch-primary); text-decoration: none; font-weight: 800; transition: all 0.3s; }
+    footer a:hover { text-decoration: underline; }
+    .footer-heart { color: var(--accent-pink); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .intro-card { grid-template-columns: 1fr; gap: 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+      .topbar-name { display: none; }
+    }
+	
+ .hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.hero-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* KEY: aligns stats under text */
+}
+/* keep same size */
+.avatar {
+  margin-bottom: 0; /* IMPORTANT - remove vertical spacing */
+}
+
+/* optional: tighten spacing */
+.hero h1 {
+  margin-bottom: 0;
+}
+section {
+  margin-top: 1.5rem;
+}
+  </style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-layer"></div>
+<div class="bg-grid"></div>
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
+<div class="bg-glow glow-3"></div>
+
+<!-- Minimal Topbar -->
+<nav class="topbar" id="topbar">
+  <div class="topbar-left">
+    <div class="topbar-avatar">
+      <img src="images/sriyan.png" alt="Sriyan" onerror="this.parentElement.textContent='🐱'">
+    </div>
+    <span class="topbar-name">Sriyan's Portfolio</span>
+  </div>
+  <button class="login-btn" id="authBtn">🔐 Login</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+  </div>
+  
+
+
+<div class="hero-inner">
+
+  <div class="hero-header">
+    <div class="avatar">
+      <img src="images/sriyan.png" alt="Avatar">
+    </div>
+
+    <div class="hero-title-block">
+      <h1>Sriyan's Portfolio</h1>
+
+      <div class="hero-stats">
+        <div class="stat-pill">🎓 Class 5 Student</div>
+        <div class="stat-pill">💻 Scratch Coder</div>
+        <div class="stat-pill">🌍 Science Explorer</div>
+      </div>
+    </div>
+
+  </div>
+
+
+</header>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-card">
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🚀</div>
+      <div class="intro-block-text">
+        <strong>Multi-Module Creator</strong>
+        <span>Building games, AI projects, apps, and interactive science experiments across different platforms.</span>
+      </div>
+    </div>
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🧠</div>
+      <div class="intro-block-text">
+        <strong>Full-Stack Exploration</strong>
+        <span>Learning everything from visual block coding to AI, web development, and creative applications.</span>
+      </div>
+    </div>
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🎮</div>
+      <div class="intro-block-text">
+        <strong>Play & Discover</strong>
+        <span>Click any project to explore it live — no signup required. Let's build something amazing together!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="tabs-nav" id="tabsNav">
+    <button class="tab-btn active" data-tab="scratch"><span>🐱</span> Scratch Projects</button>
+    <button class="tab-btn" data-tab="ai"><span>🤖</span> AI Projects</button>
+    <button class="tab-btn" data-tab="apps"><span>📱</span> Web Apps</button>
+  </div>
+
+  <div class="section-header" id="header-scratch">
+    <h2>🐱 Scratch Projects</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-scratch">0 projects</span>
+      <button class="btn-delete-project" id="del-scratch">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-scratch"><span>+</span> Add</button>
+    </div>
+  </div>
+  <div class="section-header" id="header-ai" style="display:none;">
+    <h2>🤖 AI Projects</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-ai">0 projects</span>
+      <button class="btn-delete-project" id="del-ai">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-ai"><span>+</span> Add</button>
+    </div>
+  </div>
+  <div class="section-header" id="header-apps" style="display:none;">
+    <h2>📱 Web Apps</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-apps">0 projects</span>
+      <button class="btn-delete-project" id="del-apps">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-apps"><span>+</span> Add</button>
+    </div>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid-scratch"></div>
+  <div class="projects-grid" id="projectsGrid-ai" style="display:none;"></div>
+  <div class="projects-grid" id="projectsGrid-apps" style="display:none;"></div>
+</main>
+
+<footer>
+  Made with <span class="footer-heart">♥</span> by
+  <a href="https://scratch.mit.edu/users/sriyankatakam" target="_blank">Sriyan (sriyankatakam)</a>
+  &nbsp;·&nbsp; Powered by creativity & code
+  &nbsp;·&nbsp; <a href="https://scratch.mit.edu/" target="_blank">Scratch – MIT</a>
+</footer>
+
+<!-- DELETE MODAL -->
+<div class="modal-overlay" id="deleteModalOverlay">
+  <div class="modal">
+    <div class="delete-modal-header">
+      <h3>🗑️ Delete Projects</h3>
+      <button class="modal-close" id="closeDeleteModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="project-checkbox-list" id="deleteCheckboxList"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelDelete">Cancel</button>
+        <button class="delete-selected-btn" id="deleteSelectedBtn" disabled>🗑️ Delete Selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Add New Project</h3>
+      <button class="modal-close" id="closeAddModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Project URL or ID *</label>
+        <input type="text" id="inputId" placeholder="https://scratch.mit.edu/projects/123456789">
+        <span class="form-hint">Paste the full URL or just the project number</span>
+        <span class="form-error" id="errorId">Please enter a valid project URL or ID.</span>
+      </div>
+      <div class="form-group">
+        <label>Project Title *</label>
+        <input type="text" id="inputTitle" placeholder="e.g. Water Cycle Simulator" maxlength="60">
+        <span class="form-error" id="errorTitle">Please enter a title.</span>
+      </div>
+      <div class="form-group">
+        <label>Description (optional)</label>
+        <textarea id="inputDesc" placeholder="What does this project do?"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="inputTag">
+            <option value="Game">🎮 Game</option>
+            <option value="Science">🔬 Science</option>
+            <option value="Art">🎨 Art</option>
+            <option value="Music">🎵 Music</option>
+            <option value="Story">📖 Story</option>
+            <option value="Animation">✨ Animation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pick Emoji</label>
+          <div class="emoji-grid" id="emojiGrid"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelAdd">Cancel</button>
+        <button class="btn-submit" id="submitProject">✅ Add Project</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+// ═══════════════════════════════
+// FIREBASE SETUP
+// ═══════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyBb1BAW7lQ5kCGL38FYKlPc8e7d1X9i5jE",
+  authDomain: "sriyan-portfolio.firebaseapp.com",
+  projectId: "sriyan-portfolio",
+  appId: "1:265311303054:web:64e8eb6a7a8f8d9853a0df"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const ADMIN_EMAIL = "sathish.katakam@gmail.com";
+let isAdmin = false;
+let allProjects = [];
+let currentTab = 'scratch';
+let currentModalTab = 'scratch';
+
+// ═══════════════════════════════
+// TAB SWITCHING (event delegation)
+// ═══════════════════════════════
+document.getElementById('tabsNav').addEventListener('click', function(e) {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  const tab = btn.dataset.tab;
+  if (!tab) { console.error('Tab button missing data-tab'); return; }
+
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.projects-grid').forEach(g => g.style.display = 'none');
+  document.querySelectorAll('.section-header').forEach(h => h.style.display = 'none');
+  const grid = document.getElementById(`projectsGrid-${tab}`);
+  const header = document.getElementById(`header-${tab}`);
+  if (grid) grid.style.display = 'grid';
+  if (header) header.style.display = 'flex';
+  renderProjects(tab);
+});
+
+// ═══════════════════════════════
+// AUTH
+// ═══════════════════════════════
+auth.onAuthStateChanged(user => {
+  isAdmin = user && user.email === ADMIN_EMAIL;
+  const btn = document.getElementById("authBtn");
+  if (user) {
+    btn.textContent = isAdmin ? "🚪 Logout (Admin)" : "🚪 Logout";
+    btn.onclick = () => auth.signOut().catch(err => alert(err.message));
+  } else {
+    btn.textContent = "🔐 Login";
+    btn.onclick = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(err => alert(err.message));
+    };
+  }
+  applyAccessControl();
+});
+
+function applyAccessControl() {
+  document.querySelectorAll('.btn-add-project').forEach(b => b.style.display = isAdmin ? 'inline-flex' : 'none');
+  document.querySelectorAll('.btn-delete-project').forEach(b => b.style.display = isAdmin ? 'inline-flex' : 'none');
+}
+
+// ═══════════════════════════════
+// FIRESTORE
+// ═══════════════════════════════
+function listenProjects() {
+  db.collection("projects").orderBy("createdAt", "desc").onSnapshot(
+    snapshot => {
+      allProjects = snapshot.docs.map(doc => ({ docId: doc.id, ...doc.data() }));
+      renderProjects(currentTab);
+      updateCounts();
+    },
+    error => { console.error("Firestore listener error:", error); }
+  );
+}
+
+function updateCounts() {
+  ['scratch','ai','apps'].forEach(m => {
+    const c = allProjects.filter(p => p.module === m).length;
+    const el = document.getElementById(`count-${m}`);
+    if (el) el.textContent = c + ' project' + (c !== 1 ? 's' : '');
+  });
+}
+
+// ═══════════════════════════════
+// EMOJI PICKER
+// ═══════════════════════════════
+const EMOJIS = ["💧","🎮","🐱","🚀","🎨","🎵","🌟","🏆","🌈","🦋","⚡","🐉","🌊","🔥","🎭","🤖","🏃","🎯","🧩","🔬","📖","🧠","✨","🌍","🌻"];
+let selectedEmoji = "🎮";
+
+function initEmojiPicker() {
+  const grid = document.getElementById("emojiGrid");
+  grid.innerHTML = "";
+  EMOJIS.forEach(e => {
+    const btn = document.createElement("button");
+    btn.className = "emoji-btn"; btn.textContent = e; btn.type = "button";
+    btn.addEventListener('click', () => {
+      selectedEmoji = e;
+      document.querySelectorAll(".emoji-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+    grid.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════
+// RENDER
+// ═══════════════════════════════
+function renderProjects(module) {
+  const grid = document.getElementById(`projectsGrid-${module}`);
+  if (!grid) return;
+  const filtered = allProjects.filter(p => p.module === module);
+  grid.innerHTML = '';
+  if (filtered.length === 0) {
+    const emoji = module === 'scratch' ? '🐱' : module === 'ai' ? '🤖' : '📱';
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">${emoji}</div><p>No projects yet!</p><span>Add your first project to get started</span></div>`;
+    return;
+  }
+  filtered.forEach(p => grid.appendChild(createProjectCard(p, module)));
+}
+
+function createProjectCard(p, module) {
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  let projectURL='', editorURL='', thumbURL='', actionHTML='';
+  if (module === 'scratch') {
+    projectURL = `https://scratch.mit.edu/projects/${p.scratchId}`;
+    editorURL = `${projectURL}/editor`;
+    thumbURL = `https://uploads.scratch.mit.edu/projects/thumbnails/${p.scratchId}.png`;
+    actionHTML = `<a class="btn-play" href="${projectURL}" target="_blank">▶ Play</a><a class="btn-see" href="${editorURL}" target="_blank">See</a>`;
+  } else if (module === 'ai') {
+    projectURL = p.projectURL || '#'; thumbURL = p.thumbnailURL || '';
+    actionHTML = `<a class="btn-play" href="${projectURL}" target="_blank">🚀 Open</a>`;
+  } else {
+    projectURL = p.projectURL || '#'; thumbURL = p.thumbnailURL || '';
+    actionHTML = `<a class="btn-play" href="${projectURL}" target="_blank">🌐 Visit</a>`;
+  }
+  const bc = module === 'ai' ? 'ai' : module === 'apps' ? 'apps' : '';
+  card.innerHTML = `
+    <a class="card-thumb" href="${projectURL}" target="_blank">
+      ${thumbURL ? `<img src="${thumbURL}" alt="${p.title}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />` : ''}
+      <div class="thumb-fallback" style="display:${!thumbURL?'flex':'none'};">${p.emoji||'🎮'}</div>
+      <div class="overlay"><div class="overlay-play">${module==='scratch'?'▶ Play':module==='ai'?'🚀 Open':'🌐 Visit'}</div></div>
+    </a>
+    <div class="card-body">
+      <span class="card-badge ${bc}">${p.tag||""}</span>
+      <div class="card-title">${p.title}</div>
+      ${p.description?`<div class="card-desc">${p.description}</div>`:''}
+      <div class="card-actions">${actionHTML}</div>
+    </div>`;
+  return card;
+}
+
+// ═══════════════════════════════
+// ADD MODAL
+// ═══════════════════════════════
+function openModal(tab) {
+  currentModalTab = tab;
+  document.getElementById("modalOverlay").classList.add("open");
+}
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.getElementById('inputId').value = '';
+  document.getElementById('inputTitle').value = '';
+  document.getElementById('inputDesc').value = '';
+  selectedEmoji = "🎮"; initEmojiPicker();
+}
+function extractId(input) {
+  input = input.trim();
+  const m = input.match(/projects\/(\d+)/);
+  if (m) return m[1];
+  return /^\d+$/.test(input) ? input : null;
+}
+async function addProject() {
+  if (!isAdmin) return alert("Only admin can add projects");
+  const rawId = document.getElementById('inputId').value;
+  const title = document.getElementById('inputTitle').value.trim();
+  const description = document.getElementById('inputDesc').value.trim();
+  const tag = document.getElementById('inputTag').value;
+  let id = null;
+  if (currentModalTab === 'scratch') { id = extractId(rawId); if (!id) return alert("Invalid Scratch project ID"); }
+  else { if (!rawId.trim()) return alert("Please enter a project URL"); }
+  if (!title) return alert("Please enter a title");
+  const data = { module: currentModalTab, title, description, emoji: selectedEmoji, tag, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
+  if (currentModalTab === 'scratch') data.scratchId = id; else data.projectURL = rawId.trim();
+  try { await db.collection("projects").add(data); closeModal(); }
+  catch(err) { console.error("Add project error:", err); alert("Error adding project: " + err.message); }
+}
+
+// ═══════════════════════════════
+// DELETE MODAL
+// ═══════════════════════════════
+function openDeleteModal(tab) {
+  currentModalTab = tab;
+  const overlay = document.getElementById("deleteModalOverlay");
+  const list = document.getElementById("deleteCheckboxList");
+  const filtered = allProjects.filter(p => p.module === tab);
+  overlay.classList.add("open"); list.innerHTML = "";
+  if (filtered.length === 0) { list.innerHTML = `<div class="no-projects-msg">No projects to delete</div>`; return; }
+  filtered.forEach(p => {
+    const item = document.createElement("label");
+    item.className = "project-checkbox-item";
+    item.innerHTML = `<input type="checkbox" value="${p.docId}"><div class="item-emoji">${p.emoji||"🎮"}</div><div class="item-info"><div class="item-title">${p.title}</div><div class="item-id">ID: ${p.scratchId||p.projectURL}</div></div>`;
+    list.appendChild(item);
+  });
+  list.querySelectorAll('input').forEach(cb => cb.addEventListener('change', updateDeleteButton));
+}
+function updateDeleteButton() {
+  document.querySelectorAll('#deleteCheckboxList .project-checkbox-item').forEach(item => {
+    item.classList.toggle('checked', item.querySelector('input').checked);
+  });
+  document.getElementById('deleteSelectedBtn').disabled = !document.querySelector('#deleteCheckboxList input:checked');
+}
+function deleteSelected() {
+  if (!isAdmin) return alert("Only admin can delete");
+  document.querySelectorAll('#deleteCheckboxList input:checked').forEach(c => db.collection("projects").doc(c.value).delete());
+  closeDeleteModal();
+}
+function closeDeleteModal() { document.getElementById("deleteModalOverlay").classList.remove("open"); }
+
+// ═══════════════════════════════
+// EVENT LISTENERS
+// ═══════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  initEmojiPicker();
+  listenProjects();
+
+  // Add/Delete buttons
+  document.getElementById('add-scratch').addEventListener('click', () => openModal('scratch'));
+  document.getElementById('add-ai').addEventListener('click', () => openModal('ai'));
+  document.getElementById('add-apps').addEventListener('click', () => openModal('apps'));
+  document.getElementById('del-scratch').addEventListener('click', () => openDeleteModal('scratch'));
+  document.getElementById('del-ai').addEventListener('click', () => openDeleteModal('ai'));
+  document.getElementById('del-apps').addEventListener('click', () => openDeleteModal('apps'));
+
+  // Modal close
+  document.getElementById('closeAddModal').addEventListener('click', closeModal);
+  document.getElementById('cancelAdd').addEventListener('click', closeModal);
+  document.getElementById('closeDeleteModal').addEventListener('click', closeDeleteModal);
+  document.getElementById('cancelDelete').addEventListener('click', closeDeleteModal);
+  document.getElementById('submitProject').addEventListener('click', addProject);
+  document.getElementById('deleteSelectedBtn').addEventListener('click', deleteSelected);
+
+  // Overlay click to close
+  document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
+  document.getElementById('deleteModalOverlay').addEventListener('click', e => { if (e.target.id === 'deleteModalOverlay') closeDeleteModal(); });
+});
+</script>
+</body>
+</html>
