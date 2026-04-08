@@ -35,9 +35,9 @@ body {
 /* ── TOPBAR ── */
 .topbar {
   position: absolute; top: 0; left: 0; right: 0; z-index: 100;
-  height: 80px;
+  height: 50px;
   display: flex; align-items: center; justify-content: flex-end;
-  padding: 0 40px;
+  padding: 10px 16px;
   background: transparent;
   border-bottom: none;
 }
@@ -64,7 +64,7 @@ body {
 /* ── HERO ── */
 .hero {
   position: relative; z-index: 1;
-  padding-top: 10px; padding-bottom: 120px;
+  padding-top: 20px; padding-bottom: 120px;
   min-height: 20vh;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(to bottom, #FF6A00 0%, #FFB75E 60%, #FCF7F2 100%);
