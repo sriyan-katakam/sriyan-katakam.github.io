@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sriyan's Portfolio</title>
+  <meta name="description" content="Sriyan Katakam — 5th grader, coder, creator, and explorer. Explore Scratch projects, AI experiments, and web apps.">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Minimal Topbar -->
+<nav class="topbar" id="topbar">
+  <button class="login-btn" id="authBtn">🔐 Login</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg-circle circle-1"></div>
+  <div class="hero-bg-circle circle-2"></div>
+  <div class="hero-bg-circle circle-3"></div>
+  <div class="hero-inner">
+    <div class="hero-header hero-centered">
+      <div class="hero-title-row">
+        <div class="avatar">
+          <img src="images/sriyan.png" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Sriyan&background=ffffff&color=FF8A00&size=100&font-size=0.33'">
+        </div>
+        <h1>Sriyan's Labs</h1>
+      </div>
+      <div class="hero-title-block">
+        <div class="hero-stats">
+          <div class="stat-pill">🎓 Class 5 Student</div>
+          <div class="stat-pill">💻 Scratch Coder</div>
+          <div class="stat-pill">🌍 Science Explorer</div>
+        </div>        
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-card">
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🚀</div>
+      <div class="intro-block-text">
+        <strong>Multi-Module Creator</strong>
+        <span>Building games, AI projects, apps, and interactive science experiments across different platforms.</span>
+      </div>
+    </div>
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🧠</div>
+      <div class="intro-block-text">
+        <strong>Full-Stack Exploration</strong>
+        <span>Learning everything from visual block coding to AI, web development, and creative applications.</span>
+      </div>
+    </div>
+    <div class="intro-block">
+      <div class="intro-icon-wrap">🎮</div>
+      <div class="intro-block-text">
+        <strong>Play & Discover</strong>
+        <span>Click any project to explore it live — no signup required. Let's build something amazing together!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="tabs-nav" id="tabsNav">
+    <button class="tab-btn active" data-tab="scratch">
+      <span class="tab-icon">🐱</span>
+      <span class="tab-text">Scratch</span>
+    </button>
+    <button class="tab-btn" data-tab="ai">
+      <span class="tab-icon">🤖</span>
+      <span class="tab-text">AI Labs</span>
+    </button>
+    <button class="tab-btn" data-tab="apps">
+      <span class="tab-icon">📱</span>
+      <span class="tab-text">Web Apps</span>
+    </button>
+	<a href="https://scratch.mit.edu/users/sriyankatakam" 
+	   target="_blank" 
+	   class="tab-btn link-btn">
+	  <span class="tab-icon">#</span>
+	  <span class="tab-text">Coding Area</span>
+	</a>
+
+</a>
+	
+  </div>
+
+  <div class="section-header" id="header-scratch">
+    <h2>🌟 My Projects</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-scratch">0 projects</span>
+      <button class="btn-delete-project" id="del-scratch">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-scratch"><span>+</span> Add</button>
+    </div>
+  </div>
+  <div class="section-header" id="header-ai" style="display:none;">
+    <h2>🤖 AI Projects</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-ai">0 projects</span>
+      <button class="btn-delete-project" id="del-ai">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-ai"><span>+</span> Add</button>
+    </div>
+  </div>
+  <div class="section-header" id="header-apps" style="display:none;">
+    <h2>📱 Web Apps</h2>
+    <div class="section-header-right">
+      <span class="count-badge" id="count-apps">0 projects</span>
+      <button class="btn-delete-project" id="del-apps">🗑️ Delete</button>
+      <button class="btn-add-project" id="add-apps"><span>+</span> Add</button>
+    </div>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid-scratch"></div>
+  <div class="projects-grid" id="projectsGrid-ai" style="display:none;"></div>
+  <div class="projects-grid" id="projectsGrid-apps" style="display:none;"></div>
+</main>
+
+<footer>
+  Made with <span class="footer-heart">♥</span> by
+  <a href="https://scratch.mit.edu/users/sriyankatakam" target="_blank">Sriyan</a>
+  &nbsp;·&nbsp; Powered by creativity & code
+  &nbsp;·&nbsp; <a href="https://scratch.mit.edu/" target="_blank">Scratch – MIT</a>
+</footer>
+
+<!-- DELETE MODAL -->
+<div class="modal-overlay" id="deleteModalOverlay">
+  <div class="modal">
+    <div class="delete-modal-header">
+      <h3>🗑️ Delete Projects</h3>
+      <button class="modal-close" id="closeDeleteModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="project-checkbox-list" id="deleteCheckboxList"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelDelete">Cancel</button>
+        <button class="delete-selected-btn" id="deleteSelectedBtn" disabled>🗑️ Delete Selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Add New Project</h3>
+      <button class="modal-close" id="closeAddModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Project URL or ID *</label>
+        <input type="text" id="inputId" placeholder="https://scratch.mit.edu/projects/123456789">
+        <span class="form-hint">Paste the full URL or just the project number</span>
+        <span class="form-error" id="errorId">Please enter a valid project URL or ID.</span>
+      </div>
+      <div class="form-group">
+        <label>Project Title *</label>
+        <input type="text" id="inputTitle" placeholder="e.g. Water Cycle Simulator" maxlength="60">
+        <span class="form-error" id="errorTitle">Please enter a title.</span>
+      </div>
+      <div class="form-group">
+        <label>Description (optional)</label>
+        <textarea id="inputDesc" placeholder="What does this project do?"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="inputTag">
+            <option value="Game">🎮 Game</option>
+            <option value="Science">🔬 Science</option>
+            <option value="Art">🎨 Art</option>
+            <option value="Music">🎵 Music</option>
+            <option value="Story">📖 Story</option>
+            <option value="Animation">✨ Animation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pick Emoji</label>
+          <div class="emoji-grid" id="emojiGrid"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelAdd">Cancel</button>
+        <button class="btn-submit" id="submitProject">✅ Add Project</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<!-- App Script -->
+<script src="script.js"></script>
+</body>
+</html>
