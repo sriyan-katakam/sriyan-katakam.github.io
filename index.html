@@ -640,15 +640,15 @@ section {
 // FIREBASE SETUP
 // ═══════════════════════════════
 const firebaseConfig = {
-  apiKey: process.env.APIKEY,
+  apiKey:  "AIzaSyBb1BAW7lQ5kCGL38FYKlPc8e7d1X9i5jE",
   authDomain: "sriyan-portfolio.firebaseapp.com",
   projectId: "sriyan-portfolio",
-  appId: process.env.APPID,
+  appId: "1:265311303054:web:64e8eb6a7a8f8d9853a0df"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_EMAIL = "sathish.katakam@gmail.com";
 let isAdmin = false;
 let allProjects = [];
 let currentTab = 'scratch';
